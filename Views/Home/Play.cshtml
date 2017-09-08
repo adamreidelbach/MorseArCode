@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Play The Game";
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+	<h1>
+		Decoding Morse Code With JavaScript
+	</h1>
+
+
+	<!-- BEGIN: Output. -->
+	<div class="output">
+
+		<h3>
+			Your Message (Press any key to interact):
+		</h3>
+
+		<p class="message">
+
+			<span class="characters">
+				<!-- This will be populated by the user. -->
+			</span>
+
+			<span class="possibleCharacters">
+				<!-- This will be populated dynamically. -->
+			</span>
+
+		</p>
+
+	</div>
+	<!-- END: Output. -->
+
+
+	<!-- BEGIN: Alphabet. -->
+	<div class="alphabet">
+
+		<h3>
+			Morse Code Alphabet
+		</h3>
+
+		<ul class="characters">
+			<!-- This will be populated dynamically. -->
+		</ul>
+
+		<!-- Define the template. -->
+		<script type="application/x-template" class="template">
+
+			<li>
+				<span class="character"></span>
+				<span class="sequence"></span>
+			</li>
+
+		</script>
+
+	</div>
+
+<script src="~/js/app/main.js" asp-append-version="true"></script>
