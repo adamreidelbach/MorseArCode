@@ -1,7 +1,11 @@
 
 // ***** Countdown Timer
-var count = 3 + 1;
-var counter = setInterval(timer, 1000); //1000 will  run it every second
+let count = 10 + 1,
+    counter = setInterval(timer, 1000), //1000 will  run it every second
+    challengeWord = document.getElementById("challengeWord"),
+    userResponse = document.getElementById("userResponse");
+    
+var countdown = document.getElementById("timer");
 
 function timer() {
     count--;
@@ -16,5 +20,10 @@ function timer() {
         return;
     }
     document.getElementById("timer").innerHTML = "00:" + count;
+    if (userResponse.innerHTML === challengeWord.innerHTML) {
+        alert("Correct!");
+        clearInterval(counter);
+        countdown.innerHTML = "00:00"
+    }
 }
 timer();
