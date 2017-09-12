@@ -68,7 +68,7 @@ namespace MorseArCode.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(player.Score);
+            return View("../Home/Index");
         }
 
         private bool PlayerExists(string id)
