@@ -31,31 +31,11 @@ namespace MorseArCode.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        // GET: 
-        // public async Task<IActionResult> GetUserScore()
-        // {
-        //     var user = GetCurrentUserAsync();
-
-        //     if (user == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var userScore = await _context.Users.Select(u => u.Score).SingleOrDefaultAsync();
-
-        //     if (userScore == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return Ok(userScore);
-        // }
-
         [HttpGet]
         public string GetUserScore()
         {
             var user = GetCurrentUserAsync();
-            string userScore = _context.Users.Select(u => u.Score).SingleOrDefault();
+            string userScore = _context.Users.Select(u => u.Score).FirstOrDefault();
             return userScore;
         }
 
@@ -88,7 +68,6 @@ namespace MorseArCode.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            //return the interger, or something 
             return View(player.Score);
         }
 
