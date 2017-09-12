@@ -38,6 +38,11 @@ namespace MorseArCode.Controllers
             return View(user);
         }
 
+        public IActionResult LeaderBoard()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
