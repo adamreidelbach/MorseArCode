@@ -1,3 +1,5 @@
+@model MorseArCode.Models.ApplicationUser
+
 @{
     ViewData["Title"] = "Play The Game";
 }
@@ -9,14 +11,15 @@
             <h3 class="col-md-4 text-center">Time Remaining</h3>
             <h3 class="col-md-4 text-center">Hi Score</h3>
         </div>
-            <h3 id="userScore" class="col-md-4 text-center">0</h3>
-            <h3 id="stopwatch" class="col-md-4 text-center">00:15</h3>
+            <h3 id="userScore" class="col-md-4 text-center">
+				@Model.Score
+            <h3 id="timer" class="col-md-4 text-center"></h3>
             <h3 id="hiscore" class="col-md-4 text-center">10000</h3>
         </div>
 
 		<h3 class="col-md-12 text-center">Using Morse Code, Enter The Following:</h3>
 
-        <h1 id="challengeWord" class="col-md-12 text-center">WORD</h1>
+        <h1 id="challengeWord" class="col-md-12 text-center">DOG</h1>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -60,5 +63,26 @@
 
 	</div>
 
+<!-- Countdown Timer -->
+<!-- @{ var count = 3 + 1;
+var counter = DateTime.Now.Second + 15;} 1000 will  run it every second -->
+
+<!-- function timer() {
+    count--;
+    if (count < 10) {
+        count = "0" + count
+    }
+    if (count == 0)
+    {
+        document.getElementById("timer").innerHTML = "00:00";
+        clearInterval(counter);
+        //counter ended, do something here
+        return;
+    }
+    document.getElementById("timer").innerHTML = "00:" + count;
+}
+timer(); -->
+
 <script src="~/js/app/morsecode.js" asp-append-version="true"></script>
 <script src="~/js/app/initialize.js" asp-append-version="true"></script>
+<script src="~/js/app/game.js" asp-append-version="true"></script>
