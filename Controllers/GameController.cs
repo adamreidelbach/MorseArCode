@@ -29,6 +29,7 @@ namespace MorseArCode.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
+        // GET
         [HttpGet]
         public string GetUserScore()
         {
@@ -37,9 +38,7 @@ namespace MorseArCode.Controllers
             return userScore;
         }
 
-        // POST: User Score /Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUserScore(string Score)
@@ -66,6 +65,7 @@ namespace MorseArCode.Controllers
                     }
                 }
             }
+            //Redirect to Home/Play
             return RedirectToAction("Play", "Home");
         }
 
