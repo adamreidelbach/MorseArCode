@@ -11,8 +11,6 @@ using MorseArCode.Models;
 
 namespace MorseArCode.Controllers
 {
-    [Route("Game")]
-    [Produces("application/json")]
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -31,31 +29,11 @@ namespace MorseArCode.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        // GET: 
-        // public async Task<IActionResult> GetUserScore()
-        // {
-        //     var user = GetCurrentUserAsync();
-
-        //     if (user == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var userScore = await _context.Users.Select(u => u.Score).SingleOrDefaultAsync();
-
-        //     if (userScore == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return Ok(userScore);
-        // }
-
         [HttpGet]
         public string GetUserScore()
         {
             var user = GetCurrentUserAsync();
-            string userScore = _context.Users.Select(u => u.Score).SingleOrDefault();
+            string userScore = _context.Users.Select(u => u.Score).FirstOrDefault();
             return userScore;
         }
 
@@ -64,15 +42,16 @@ namespace MorseArCode.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUserScore()
+        public async Task<IActionResult> EditUserScore(string Score)
         {
             var player = await GetCurrentUserAsync();
+            player.Score = Score;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(player.Score);
+                    _context.Update(player);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -86,10 +65,8 @@ namespace MorseArCode.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
             }
-            //return the interger, or something 
-            return View(player.Score);
+            return RedirectToAction("Play", "Home");
         }
 
         private bool PlayerExists(string id)
