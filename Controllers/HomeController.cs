@@ -34,10 +34,16 @@ namespace MorseArCode.Controllers
         {
             ApplicationUser user = await GetCurrentUserAsync();
 
-            ViewData["Message"] = "Play the game.";
+            var gameView = new InGameViewModel();
+
+            gameView.ApplicationUser = user;
+
+            gameView.HighScore = _context.Users.Max(u => u.Score);
+
+            gameView.Score = user.Score;
 
             //pass in the current user
-            return View(user);
+            return View(gameView);
         }
 
         public IActionResult LeaderBoard()
