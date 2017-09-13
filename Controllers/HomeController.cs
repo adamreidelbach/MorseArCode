@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MorseArCode.Data;
 using MorseArCode.Models;
+using MorseArCode.Models.UserViewModels;
 
 namespace MorseArCode.Controllers
 {
@@ -40,7 +41,13 @@ namespace MorseArCode.Controllers
 
         public IActionResult LeaderBoard()
         {
-            return View();
+            var allUsers = _context.Users.ToList();
+
+            var leaderBoardView = new UserScoreListViewModel();
+
+            leaderBoardView.ApplicationUser = allUsers;
+
+            return View(leaderBoardView);
         }
 
         public IActionResult About()
