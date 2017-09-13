@@ -7,12 +7,11 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
         <div class="row">
-            <h3 class="col-md-4 text-center">User Score</h3>
+            <h3 class="col-md-4 text-center">Your Score</h3>
             <h3 class="col-md-4 text-center">Time Remaining</h3>
-            <h3 class="col-md-4 text-center">Hi-Score</h3>
+            <h3 class="col-md-4 text-center">High Score</h3>
         </div>
             <h3 id="userScore" class="col-md-4 text-center">
-                <!-- User's current score -->
 				@Model.ApplicationUser.Score
             </h3>
             <h3 id="timer" class="col-md-4 text-center"></h3>
@@ -26,7 +25,7 @@
         <!-- Call the EditUserScore method inside of the Game controller -->
         @using (Html.BeginForm("EditUserScore", "Game", FormMethod.Post))
         {
-            <div class="form-group hidden">
+            <div class="form-group">
                 <label asp-for="ApplicationUser.Score" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input asp-for="ApplicationUser.Score" class="form-control" />
