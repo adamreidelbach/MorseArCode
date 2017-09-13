@@ -6,7 +6,7 @@ let count = 10 + 1,
     userResponse = document.getElementById("userResponse");
 var countdown = document.getElementById("timer"),
     userScore = document.getElementById("userScore"),
-    score = document.getElementById("ApplicationUser_Score");
+    score = document.getElementById("Score");
 
 function timer() {
     count--;
@@ -26,7 +26,6 @@ function timer() {
         clearInterval(counter);
         countdown.innerHTML = "00:00"
         userScoreNum = parseInt(userScore.innerHTML);
-        console.log(userScore.innerHTML);
         userScoreNum += 1000;
         userScore.innerHTML = userScoreNum;
         let newNum = userScore.innerHTML;

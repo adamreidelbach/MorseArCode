@@ -11,5 +11,7 @@ namespace MorseArCode.Models.UserViewModels
         public ApplicationUser ApplicationUser { get; set; }
 
         public string HighScore { get; set; }
+
+        public string Score { get; set; }
     }
 }

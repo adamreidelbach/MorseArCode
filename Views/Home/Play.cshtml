@@ -26,10 +26,10 @@
         @using (Html.BeginForm("EditUserScore", "Game", FormMethod.Post))
         {
             <div class="form-group">
-                <label asp-for="ApplicationUser.Score" class="col-md-2 control-label"></label>
+                <label asp-for="Score" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="ApplicationUser.Score" class="form-control" />
-                    <span asp-validation-for="ApplicationUser.Score" class="text-danger"></span>
+                    <input asp-for="Score" class="form-control" />
+                    <span asp-validation-for="Score" class="text-danger"></span>
                 </div>
             </div>
             <input class="btn btn-default" type="submit" id="nextGame" value="Next Game">
