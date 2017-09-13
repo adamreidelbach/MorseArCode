@@ -1,0 +1,39 @@
+@model UserScoreListViewModel
+
+@{
+    ViewData["Title"] = "View The Leader Board";
+}
+
+<h2>Leader Board</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Score
+                </th>
+                <th>
+                    CPM
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var player in Model.ApplicationUser) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => player.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => player.Score)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => player.CPM)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

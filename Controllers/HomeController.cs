@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MorseArCode.Data;
 using MorseArCode.Models;
+using MorseArCode.Models.UserViewModels;
 
 namespace MorseArCode.Controllers
 {
@@ -35,7 +36,23 @@ namespace MorseArCode.Controllers
 
             ViewData["Message"] = "Play the game.";
 
+            //pass in the current user
             return View(user);
+        }
+
+        public IActionResult LeaderBoard()
+        {
+            //make a list of all users
+            var allUsers = _context.Users.ToList();
+
+            //make an instance of the view model
+            var leaderBoardView = new UserScoreListViewModel();
+
+            //add all the users
+            leaderBoardView.ApplicationUser = allUsers;
+
+            //pass in all the users
+            return View(leaderBoardView);
         }
 
         public IActionResult About()
