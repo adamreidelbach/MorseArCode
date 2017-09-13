@@ -9,26 +9,38 @@
         <div class="row">
             <h3 class="col-md-4 text-center">User Score</h3>
             <h3 class="col-md-4 text-center">Time Remaining</h3>
-            <h3 class="col-md-4 text-center">Hi Score</h3>
+            <h3 class="col-md-4 text-center">Hi-Score</h3>
         </div>
             <h3 id="userScore" class="col-md-4 text-center">
 				@Model.Score
+            </h3>
             <h3 id="timer" class="col-md-4 text-center"></h3>
             <h3 id="hiscore" class="col-md-4 text-center">10000</h3>
         </div>
 
 		<h3 class="col-md-12 text-center">Using Morse Code, Enter The Following:</h3>
 
-        <h1 id="challengeWord" class="col-md-12 text-center">DOG</h1>
+        <h1 id="challengeWord" class="col-md-12 text-center">D</h1>
+
+
+        @using (Html.BeginForm("EditUserScore", "Game", FormMethod.Post))
+        {
+            <div class="form-group hidden">
+                <label asp-for="Score" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Score" class="form-control" />
+                    <span asp-validation-for="Score" class="text-danger"></span>
+                </div>
+            </div>
+            <input class="btn btn-default" type="submit" id="nextGame" value="Next Game">
+        }
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
 
 		<p class="message">
 
-			<span class="characters">
-				<!-- This will be populated by the user. -->
-			</span>
+			<span id="userResponse" class="characters"></span>
 
 			<span class="possibleCharacters">
 				<!-- This will be populated dynamically. -->
