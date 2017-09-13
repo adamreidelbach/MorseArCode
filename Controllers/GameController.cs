@@ -11,8 +11,6 @@ using MorseArCode.Models;
 
 namespace MorseArCode.Controllers
 {
-    [Route("Game")]
-    [Produces("application/json")]
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,15 +42,16 @@ namespace MorseArCode.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUserScore()
+        public async Task<IActionResult> EditUserScore(string Score)
         {
             var player = await GetCurrentUserAsync();
+            player.Score = Score;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(player.Score);
+                    _context.Update(player);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -66,7 +65,6 @@ namespace MorseArCode.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
             }
             return RedirectToAction("Play", "Home");
         }
