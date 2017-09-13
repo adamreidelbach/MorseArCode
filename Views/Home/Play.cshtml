@@ -25,7 +25,7 @@
         <!-- Call the EditUserScore method inside of the Game controller -->
         @using (Html.BeginForm("EditUserScore", "Game", FormMethod.Post))
         {
-            <div class="form-group">
+            <div class="form-group hidden">
                 <label asp-for="Score" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input asp-for="Score" class="form-control" />
