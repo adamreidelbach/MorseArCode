@@ -146,12 +146,14 @@
         wordCounter++;
         let newWord = levelOneWords[wordCounter];
         $("#challengeWord").html(newWord);
+        $("#userResponse").html("");
     }
     populateWords();
 
     $("#newWord").click(function() {
         populateWords();
         cdReset();
+        $("#userResponse").html("");
     });
 </script>
 

@@ -162,17 +162,17 @@
 
                     // Set a timer to add a new space to the
                     // message.
-                    spaceTimer = setTimeout(
-                        function(){
+                    // spaceTimer = setTimeout(
+                    //     function(){
 
-                            // Add a "space".
-                            dom.characters.text(
-                                dom.characters.text() + "__"
-                            );
+                    //         // Add a "space".
+                    //         dom.characters.text(
+                    //             dom.characters.text() + "__"
+                    //         );
 
-                        },
-                        3500
-                    );
+                    //     },
+                    //     3500
+                    // );
 
                 },
                 (pauseDuration * 3)
