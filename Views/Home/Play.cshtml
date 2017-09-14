@@ -18,9 +18,9 @@
             <h3 id="hiscore" class="col-md-4 text-center">@Model.HighScore</h3>
         </div>
 
-		<h3 class="col-md-12 text-center">Using Morse Code, Enter The Following:</h3>
+		<h3 class="col-md-12 text-center">Tap Any Key And Enter The Following:</h3>
 
-        <h1 id="challengeWord" class="col-md-12 text-center">D</h1>
+        <h1 id="challengeWord" class="col-md-12 text-center">-</h1>
 
         <!-- Call the EditUserScore method inside of the Game controller -->
         @using (Html.BeginForm("EditUserScore", "Game", FormMethod.Post))
@@ -32,8 +32,10 @@
                     <span asp-validation-for="Score" class="text-danger"></span>
                 </div>
             </div>
-            <input class="btn btn-default" type="submit" id="nextGame" value="Next Game">
+            <input class="btn btn-default" type="submit" id="nextGame" value="Submit Scores">
         }
+
+        <button class="btn btn-default" id="newWord">New Word</button>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -72,28 +74,86 @@
 			</li>
 
 		</script>
-
 	</div>
 
-<!-- Countdown Timer -->
-<!-- @{ var count = 3 + 1;
-var counter = DateTime.Now.Second + 15;} 1000 will  run it every second -->
+<script>
+    // ***** Countdown Timer
+    let count = 15 + 1,
+        counter = setInterval(timer, 1000), //1000 will  run it every second
+        userResponse = document.getElementById("userResponse");
 
-<!-- function timer() {
-    count--;
-    if (count < 10) {
-        count = "0" + count
+    var countdown = document.getElementById("timer"),
+        score = document.getElementById("Score");
+
+    function cdDisplay() {
+        countdown.innerHTML = "00:" + count;
     }
-    if (count == 0)
-    {
-        document.getElementById("timer").innerHTML = "00:00";
-        clearInterval(counter);
-        //counter ended, do something here
-        return;
+
+    function cdReset() {
+        count = 15; //reset counter and display
+        cdDisplay();
+        clearInterval(counter); //clear the timer
+        counter = setInterval(timer, 1000) //not exactly sure why counter must be set equal to setInterval
     }
-    document.getElementById("timer").innerHTML = "00:" + count;
-}
-timer(); -->
+
+    function timer() {
+        count--;
+        if (count < 10) {
+            count = "0" + count
+        }
+        cdDisplay();
+        if (count == 0)
+        {
+            $("#timer").html("00:00");
+            clearInterval(counter);
+            //counter ended, do something here
+            return;
+        }
+        if (userResponse.innerHTML === challengeWord.innerHTML) {
+            alert("Correct!");
+            clearInterval(counter);
+            countdown.innerHTML = "00:00"
+            userScoreNum = parseInt(userScore.innerHTML);
+            userScoreNum += 1000;
+            userScore.innerHTML = userScoreNum;
+            let newNum = userScore.innerHTML;
+            score.value = newNum;
+        }
+    }
+    timer();
+
+    //Word Generator
+    let levelOneWords = [
+        "DOG",
+        "GIT",
+        "BUS",
+        "INT",
+        "WHO",
+        "SOY",
+        "CAT",
+        "PIT",
+        "FLY",
+        "ELF",
+        "SPY"
+    ];
+
+    var wordCounter = 0;
+
+    function populateWords() {
+        if (wordCounter >= 10) {
+            wordCounter = 0;
+        }
+        wordCounter++;
+        let newWord = levelOneWords[wordCounter];
+        $("#challengeWord").html(newWord);
+    }
+    populateWords();
+
+    $("#newWord").click(function() {
+        populateWords();
+        cdReset();
+    });
+</script>
 
 <script src="~/js/app/morsecode.js" asp-append-version="true"></script>
 <script src="~/js/app/initialize.js" asp-append-version="true"></script>

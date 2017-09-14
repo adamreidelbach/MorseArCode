@@ -10,8 +10,8 @@ namespace MorseArCode.Models.UserViewModels
     {
         public ApplicationUser ApplicationUser { get; set; }
 
-        public string HighScore { get; set; }
+        public double HighScore { get; set; }
 
-        public string Score { get; set; }
+        public double Score { get; set; }
     }
 }

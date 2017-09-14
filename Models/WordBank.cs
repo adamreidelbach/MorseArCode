@@ -8,13 +8,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace MorseArCode.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ComputerUser
+    public class WordBank
     {
-        [Required]
-        public string Name { get; set; }
-        
-        public double Score { get; set; }
-
-        public int CPM { get; set; }
+        public string word { get; set; }
+        public int difficultyLevel { get; set; }
     }
 }
