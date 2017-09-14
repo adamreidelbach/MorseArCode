@@ -13,7 +13,7 @@ namespace MorseArCode.Models
         [Required]
         public string Name { get; set; }
         
-        public string Score { get; set; }
+        public double Score { get; set; }
 
         public int CPM { get; set; }
     }

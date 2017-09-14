@@ -31,17 +31,17 @@ namespace MorseArCode.Controllers
 
         // GET
         [HttpGet]
-        public string GetUserScore()
+        public double GetUserScore()
         {
             var user = GetCurrentUserAsync();
-            string userScore = _context.Users.Select(u => u.Score).FirstOrDefault();
+            double userScore = _context.Users.Select(u => u.Score).FirstOrDefault();
             return userScore;
         }
 
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUserScore(string Score)
+        public async Task<IActionResult> EditUserScore(double Score)
         {
             var player = await GetCurrentUserAsync();
             player.Score = Score;
@@ -52,7 +52,6 @@ namespace MorseArCode.Controllers
                 {
                     _context.Update(player);
                     await _context.SaveChangesAsync();
-                    return Json(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -66,7 +65,7 @@ namespace MorseArCode.Controllers
                     }
                 }
             }
-            return Json(false);
+            return RedirectToAction("Play", "Home");
         }
 
         private bool PlayerExists(string id)

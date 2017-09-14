@@ -32,7 +32,7 @@
                     <span asp-validation-for="Score" class="text-danger"></span>
                 </div>
             </div>
-            <input class="btn btn-default" type="submit" id="nextGame" value="Done">
+            <input class="btn btn-default" type="submit" id="nextGame" value="Next Game">
         }
 
         <button class="btn btn-default" onclick="populateWords()" id="newWord">New Word</button>
@@ -74,8 +74,6 @@
 			</li>
 
 		</script>
-
-
 	</div>
 
 <script>
@@ -93,10 +91,9 @@
         "SPY"
     ];
 
-    var wordCounter = 0;
-
     function populateWords() {
         console.log("test");
+        var wordCounter = 0;
         wordCounter++;
         if (wordCounter > 10) {
             wordCouter = 0;

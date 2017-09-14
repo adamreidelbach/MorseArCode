@@ -38,9 +38,11 @@ namespace MorseArCode.Controllers
 
             gameView.ApplicationUser = user;
 
-            gameView.HighScore = _context.Users.Max(u => u.Score);
-
             gameView.Score = user.Score;
+
+            var allUsers = _context.Users.ToList();
+
+            gameView.HighScore = allUsers.Max(u => u.Score);
 
             //pass in the current user
             return View(gameView);
