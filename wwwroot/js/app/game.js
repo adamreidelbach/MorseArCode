@@ -4,6 +4,7 @@ let count = 10 + 1,
     counter = setInterval(timer, 1000), //1000 will  run it every second
     challengeWord = document.getElementById("challengeWord"),
     userResponse = document.getElementById("userResponse");
+
 var countdown = document.getElementById("timer"),
     userScore = document.getElementById("userScore"),
     score = document.getElementById("Score");
@@ -33,3 +34,4 @@ function timer() {
     }
 }
 timer();
+

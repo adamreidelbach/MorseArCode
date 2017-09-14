@@ -52,6 +52,7 @@ namespace MorseArCode.Controllers
                 {
                     _context.Update(player);
                     await _context.SaveChangesAsync();
+                    return Json(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -65,8 +66,7 @@ namespace MorseArCode.Controllers
                     }
                 }
             }
-            //Redirect to Home/Play
-            return RedirectToAction("Play", "Home");
+            return Json(false);
         }
 
         private bool PlayerExists(string id)

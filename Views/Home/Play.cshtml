@@ -32,8 +32,10 @@
                     <span asp-validation-for="Score" class="text-danger"></span>
                 </div>
             </div>
-            <input class="btn btn-default" type="submit" id="nextGame" value="Next Game">
+            <input class="btn btn-default" type="submit" id="nextGame" value="Done">
         }
+
+        <button class="btn btn-default" onclick="populateWords()" id="newWord">New Word</button>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -73,27 +75,38 @@
 
 		</script>
 
+
 	</div>
 
-<!-- Countdown Timer -->
-<!-- @{ var count = 3 + 1;
-var counter = DateTime.Now.Second + 15;} 1000 will  run it every second -->
+<script>
+    let levelOneWords = [
+        "DOG",
+        "GIT",
+        "BUS",
+        "INT",
+        "WHO",
+        "SOY",
+        "CAT",
+        "PIT",
+        "FLY",
+        "ELF",
+        "SPY"
+    ];
 
-<!-- function timer() {
-    count--;
-    if (count < 10) {
-        count = "0" + count
+    var wordCounter = 0;
+
+    function populateWords() {
+        console.log("test");
+        wordCounter++;
+        if (wordCounter > 10) {
+            wordCouter = 0;
+        }
+        let newWord = levelOneWords[wordCounter];
+        console.log(newWord);
+        //challengeWord.innerHTML = newWord; -->
     }
-    if (count == 0)
-    {
-        document.getElementById("timer").innerHTML = "00:00";
-        clearInterval(counter);
-        //counter ended, do something here
-        return;
-    }
-    document.getElementById("timer").innerHTML = "00:" + count;
-}
-timer(); -->
+    populateWords();
+</script>
 
 <script src="~/js/app/morsecode.js" asp-append-version="true"></script>
 <script src="~/js/app/initialize.js" asp-append-version="true"></script>
