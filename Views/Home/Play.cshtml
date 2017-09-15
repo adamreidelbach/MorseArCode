@@ -36,7 +36,8 @@
         }
 
         <button class="btn btn-default" id="newWord">New Word</button>
-        <button class="btn btn-default" id="userResetInput">Reset</button>
+        <button class="btn btn-default" id="userResetInput">Clear Input</button>
+        <button class="btn btn-default" id="startCountdown">Start Countdown</button>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -79,7 +80,7 @@
 
 <script>
     // ***** Countdown Timer
-    let count = 15 + 1,
+    let count = 15 + 1, 
         counter = setInterval(timer, 1000), //1000 will  run it every second
         userResponse = document.getElementById("userResponse"),
         hiscore = document.getElementById("hiscore");
@@ -95,7 +96,7 @@
         count = 15; //reset counter and display
         cdDisplay();
         clearInterval(counter); //clear the timer
-        counter = setInterval(timer, 1000) //not exactly sure why counter must be set equal to setInterval
+        counter = setInterval(timer, 1000) //store counter
     }
 
     function queryScores() {
@@ -116,7 +117,7 @@
             count = "0" + count
         }
         cdDisplay();
-        if (count == 0)
+        if (count === 0)
         {
             $("#timer").html("00:00");
             clearInterval(counter);
