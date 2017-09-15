@@ -65,7 +65,7 @@ namespace MorseArCode.Controllers
                     }
                 }
             }
-            return RedirectToAction("Play", "Home");
+            return RedirectToAction("LeaderBoard", "Home");
         }
 
         private bool PlayerExists(string id)

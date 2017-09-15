@@ -36,6 +36,7 @@
         }
 
         <button class="btn btn-default" id="newWord">New Word</button>
+        <button class="btn btn-default" id="userResetInput">Reset</button>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -80,7 +81,8 @@
     // ***** Countdown Timer
     let count = 15 + 1,
         counter = setInterval(timer, 1000), //1000 will  run it every second
-        userResponse = document.getElementById("userResponse");
+        userResponse = document.getElementById("userResponse"),
+        hiscore = document.getElementById("hiscore");
 
     var countdown = document.getElementById("timer"),
         score = document.getElementById("Score");
@@ -95,6 +97,18 @@
         clearInterval(counter); //clear the timer
         counter = setInterval(timer, 1000) //not exactly sure why counter must be set equal to setInterval
     }
+
+    function queryScores() {
+        let playerScore = parseInt(userScore.innerHTML);
+        let databaseHiScore = parseInt(hiscore.innerHTML);
+        if (playerScore > databaseHiScore) {
+            $("#hiscore").html(playerScore);
+        }
+    }
+
+    $("#userResetInput").click(function() {
+        $("#userResponse").html("");
+    });
 
     function timer() {
         count--;
@@ -118,6 +132,7 @@
             userScore.innerHTML = userScoreNum;
             let newNum = userScore.innerHTML;
             score.value = newNum;
+            queryScores();
         }
     }
     timer();
@@ -146,12 +161,14 @@
         wordCounter++;
         let newWord = levelOneWords[wordCounter];
         $("#challengeWord").html(newWord);
+        $("#userResponse").html("");
     }
     populateWords();
 
     $("#newWord").click(function() {
         populateWords();
         cdReset();
+        $("#userResponse").html("");
     });
 </script>
 
