@@ -30,6 +30,11 @@ namespace MorseArCode.Controllers
             return View();
         }
 
+        public IActionResult HowToPlay()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Play()
         {
             ApplicationUser user = await GetCurrentUserAsync();

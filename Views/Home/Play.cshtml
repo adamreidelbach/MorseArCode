@@ -1,9 +1,5 @@
 @model MorseArCode.Models.UserViewModels.InGameViewModel
 
-@{
-    ViewData["Title"] = "Play The Game";
-}
-
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
         <div class="row">
@@ -35,6 +31,8 @@
             <input class="btn btn-default" type="submit" id="nextGame" value="Submit Scores">
         }
 
+        <h3>CPM</h3>
+        <h3 id="CPM"></h3>
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown">Start</button>
@@ -103,11 +101,12 @@
             $("#startCountdown").addClass("disabled");
         }
         if (countdown.innerHTML == "00:00") {
-            $("#startCountdown").addClass("disabled");
+            $("#startCountdown").removeClass("disabled");
         }
         populateWords();
         counter = setInterval(timer, 1000)
         cdReset();
+        $("#CPM").html("");
     });
 
     function queryScores() {
@@ -128,7 +127,6 @@
             count = "0" + count
         }
         cdDisplay();
-        console.log(count);
         if (count == 0)
         {
             $("#timer").html("00:00");
@@ -178,9 +176,40 @@
         $("#userResponse").html("");
     }
 
+    $(function () {
+        $( document ).keyup(charactersPerMinute);
+    });
+
+    var characterCounter = 0;
+    var initialChar = 0;
+    var pastChar = 0;
+    var timeDifference = 0;
+
+    function charactersPerMinute() {
+        console.log("test");
+        let challengeSplit = challengeWord.innerHTML;
+        let splittedChallenge = challengeSplit.split("");
+        let userSplit = userResponse.innerHTML;
+        let splittedUser = userSplit.split("");
+        if (splittedChallenge[characterCounter] === splittedUser[characterCounter]) {
+            characterCounter++;
+            console.log("characterCounter", characterCounter);
+            initialChar = new Date().getTime();
+            console.log("initialChar", initialChar);
+            if (pastChar != 0) {
+                console.log("pastChar", pastChar);
+                timeDifference += initialChar - pastChar;
+                console.log("timeDifference", timeDifference);
+                $('#CPM').html(Math.round(100 * characterCounter / timeDifference * 6000, 2) / 100);
+            }
+            pastChar = initialChar;
+        }
+    }
+
     $("#newWord").click(function() {
         populateWords();
     });
+
 </script>
 
 <script src="~/js/app/morsecode.js" asp-append-version="true"></script>
