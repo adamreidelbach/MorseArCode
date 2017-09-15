@@ -80,7 +80,8 @@
     // ***** Countdown Timer
     let count = 15 + 1; //1000 will  run it every second
         userResponse = document.getElementById("userResponse"),
-        hiscore = document.getElementById("hiscore");
+        hiscore = document.getElementById("hiscore")
+        startCountdown = document.getElementById("startCountdown");
 
     var countdown = document.getElementById("timer"),
         score = document.getElementById("Score");
@@ -127,8 +128,8 @@
             count = "0" + count
         }
         cdDisplay();
-        if (count == 0)
-        {
+        console.log(count);
+        if (count == "00") {
             $("#timer").html("00:00");
             $("#startCountdown").removeClass("disabled");
             clearInterval(counter);
@@ -145,6 +146,7 @@
             let newNum = userScore.innerHTML;
             score.value = newNum;
             queryScores();
+            $("#startCountdown").removeClass("disabled");
         }
     }
     timer();
