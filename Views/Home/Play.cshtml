@@ -20,7 +20,7 @@
 
 		<h3 class="col-md-12 text-center">Tap Any Key And Enter The Following:</h3>
 
-        <h1 id="challengeWord" class="col-md-12 text-center">-</h1>
+        <h1 id="challengeWord" class="col-md-12 text-center">Click Start To Begin</h1>
 
         <!-- Call the EditUserScore method inside of the Game controller -->
         @using (Html.BeginForm("EditUserScore", "Game", FormMethod.Post))
@@ -37,7 +37,7 @@
 
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
-        <button class="btn btn-default" id="startCountdown">Start Countdown</button>
+        <button class="btn btn-default" id="startCountdown">Start</button>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -80,8 +80,7 @@
 
 <script>
     // ***** Countdown Timer
-    let count = 15 + 1, 
-        counter = setInterval(timer, 1000), //1000 will  run it every second
+    let count = 15 + 1; //1000 will  run it every second
         userResponse = document.getElementById("userResponse"),
         hiscore = document.getElementById("hiscore");
 
@@ -98,6 +97,18 @@
         clearInterval(counter); //clear the timer
         counter = setInterval(timer, 1000) //store counter
     }
+
+    $("#startCountdown").click(function() {
+        if (count > 0) {
+            $("#startCountdown").addClass("disabled");
+        }
+        if (countdown.innerHTML == "00:00") {
+            $("#startCountdown").addClass("disabled");
+        }
+        populateWords();
+        counter = setInterval(timer, 1000)
+        cdReset();
+    });
 
     function queryScores() {
         let playerScore = parseInt(userScore.innerHTML);
@@ -117,9 +128,11 @@
             count = "0" + count
         }
         cdDisplay();
-        if (count === 0)
+        console.log(count);
+        if (count == 0)
         {
             $("#timer").html("00:00");
+            $("#startCountdown").removeClass("disabled");
             clearInterval(counter);
             //counter ended, do something here
             return;
@@ -164,12 +177,9 @@
         $("#challengeWord").html(newWord);
         $("#userResponse").html("");
     }
-    populateWords();
 
     $("#newWord").click(function() {
         populateWords();
-        cdReset();
-        $("#userResponse").html("");
     });
 </script>
 
