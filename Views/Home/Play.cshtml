@@ -188,20 +188,15 @@
     var timeDifference = 0;
 
     function charactersPerMinute() {
-        console.log("test");
         let challengeSplit = challengeWord.innerHTML;
         let splittedChallenge = challengeSplit.split("");
         let userSplit = userResponse.innerHTML;
         let splittedUser = userSplit.split("");
         if (splittedChallenge[characterCounter] === splittedUser[characterCounter]) {
             characterCounter++;
-            console.log("characterCounter", characterCounter);
             initialChar = new Date().getTime();
-            console.log("initialChar", initialChar);
             if (pastChar != 0) {
-                console.log("pastChar", pastChar);
                 timeDifference += initialChar - pastChar;
-                console.log("timeDifference", timeDifference);
                 $('#CPM').html(Math.round(100 * characterCounter / timeDifference * 6000, 2) / 100);
             }
             pastChar = initialChar;
