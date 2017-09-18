@@ -32,7 +32,7 @@
         }
 
         <h3>CPM</h3>
-        <h3 id="CPM"></h3>
+        <h3 id="CPM">0.00</h3>
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown">Start</button>
@@ -97,6 +97,10 @@
         counter = setInterval(timer, 1000) //store counter
     }
 
+    function clearCPM() {
+        $("#CPM").html("");
+    }
+
     $("#startCountdown").click(function() {
         if (count > 0) {
             $("#startCountdown").addClass("disabled");
@@ -107,7 +111,6 @@
         populateWords();
         counter = setInterval(timer, 1000)
         cdReset();
-        $("#CPM").html("");
     });
 
     function queryScores() {
@@ -128,7 +131,6 @@
             count = "0" + count
         }
         cdDisplay();
-        console.log(count);
         if (count == "00") {
             $("#timer").html("00:00");
             $("#startCountdown").removeClass("disabled");
@@ -137,8 +139,8 @@
             return;
         }
         if (userResponse.innerHTML === challengeWord.innerHTML) {
-            alert("Correct!");
             clearInterval(counter);
+            alert("Correct!");
             countdown.innerHTML = "00:00"
             userScoreNum = parseInt(userScore.innerHTML);
             userScoreNum += 1000;
@@ -147,6 +149,10 @@
             score.value = newNum;
             queryScores();
             $("#startCountdown").removeClass("disabled");
+            characterCounter = 0;
+            initialChar = 0;
+            pastChar = 0;
+            timeDifference = 0;
         }
     }
     timer();
@@ -195,6 +201,8 @@
         if (splittedChallenge[characterCounter] === splittedUser[characterCounter]) {
             characterCounter++;
             initialChar = new Date().getTime();
+            console.log("initialChar", initialChar);
+            console.log("pastChar", pastChar);
             if (pastChar != 0) {
                 timeDifference += initialChar - pastChar;
                 $('#CPM').html(Math.round(100 * characterCounter / timeDifference * 6000, 2) / 100);
