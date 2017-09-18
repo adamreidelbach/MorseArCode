@@ -3,15 +3,17 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
         <div class="row">
-            <h3 class="col-md-4 text-center">Your Score</h3>
-            <h3 class="col-md-4 text-center">Time Remaining</h3>
-            <h3 class="col-md-4 text-center">High Score</h3>
+            <h3 class="col-md-3 text-center">Your Score</h3>
+            <h3 class="col-md-3 text-center">Time Remaining</h3>
+            <h3 class="col-md-3 text-center">High Score</h3>
+            <h3 class="col-md-3 text-center">Avg. CPM</h3>
         </div>
-            <h3 id="userScore" class="col-md-4 text-center">
+            <h3 id="userScore" class="col-md-3 text-center">
 				@Model.ApplicationUser.Score
             </h3>
-            <h3 id="timer" class="col-md-4 text-center"></h3>
-            <h3 id="hiscore" class="col-md-4 text-center">@Model.HighScore</h3>
+            <h3 id="timer" class="col-md-3 text-center"></h3>
+            <h3 id="hiscore" class="col-md-3 text-center">@Model.HighScore</h3>
+            <h3 id="displayCPM" class="col-md-3 text-center">@Model.ApplicationUser.CPM</h3>
         </div>
 
 		<h3 class="col-md-12 text-center">Tap Any Key And Enter The Following:</h3>
@@ -21,18 +23,23 @@
         <!-- Call the EditUserScore method inside of the Game controller -->
         @using (Html.BeginForm("EditUserScore", "Game", FormMethod.Post))
         {
-            <div class="form-group hidden">
+            <div class="form-group">
                 <label asp-for="Score" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input asp-for="Score" class="form-control" />
                     <span asp-validation-for="Score" class="text-danger"></span>
                 </div>
             </div>
+            <div class="form-group">
+                <label asp-for="CPM" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="CPM" class="form-control" />
+                    <span asp-validation-for="CPM" class="text-danger"></span>
+                </div>
+            </div>
             <input class="btn btn-default" type="submit" id="nextGame" value="Submit Scores">
         }
 
-        <h3>CPM</h3>
-        <h3 id="CPM">0.00</h3>
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown">Start</button>
@@ -146,8 +153,9 @@
             userScoreNum += 1000;
             userScore.innerHTML = userScoreNum;
             let newNum = userScore.innerHTML;
-            score.value = newNum;
+            score.value = newNum; 
             queryScores();
+            populateCPM();
             $("#startCountdown").removeClass("disabled");
             characterCounter = 0;
             initialChar = 0;
@@ -172,6 +180,20 @@
         "SPY"
     ];
 
+    let levelTwoWords = [
+        "FIZZ",
+        "BUZZ",
+        "JUMP",
+        "LAZY",
+        "QUIZ",
+        "DOJO",
+        "ZOOM",
+        "AQUA",
+        "FLY",
+        "EXPO",
+        "HACK"
+    ];
+
     var wordCounter = 0;
 
     function populateWords() {
@@ -179,7 +201,7 @@
             wordCounter = 0;
         }
         wordCounter++;
-        let newWord = levelOneWords[wordCounter];
+        let newWord = levelTwoWords[wordCounter];
         $("#challengeWord").html(newWord);
         $("#userResponse").html("");
     }
@@ -205,10 +227,19 @@
             console.log("pastChar", pastChar);
             if (pastChar != 0) {
                 timeDifference += initialChar - pastChar;
-                $('#CPM').html(Math.round(100 * characterCounter / timeDifference * 6000, 2) / 100);
+                var userCPM = (Math.round(100 * characterCounter / timeDifference * 6000, 2) / 100);
+                $('#displayCPM').html(userCPM);
+                $("#CPM").val(userCPM);
             }
             pastChar = initialChar;
         }
+    }
+
+    function populateCPM() {
+        var userCPM = $("#displayCPM").html()
+        console.log("populateCPM", userCPM);
+        //ajax call to update database
+        //need to write a linq statement that will get the average CPM 
     }
 
     $("#newWord").click(function() {

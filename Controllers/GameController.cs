@@ -41,10 +41,11 @@ namespace MorseArCode.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUserScore(double Score)
+        public async Task<IActionResult> EditUserScore(double Score, decimal CPM)
         {
             var player = await GetCurrentUserAsync();
             player.Score = Score;
+            player.CPM = CPM;
 
             if (ModelState.IsValid)
             {
