@@ -138,11 +138,7 @@
             clearInterval(counter);
             alert("Correct!");
             countdown.innerHTML = "00:00"
-            userScoreNum = parseInt(userScore.innerHTML);
-            userScoreNum += 1000;
-            userScore.innerHTML = userScoreNum;
-            let newNum = userScore.innerHTML;
-            score.value = newNum; 
+            populateScore();
             queryScores();
             populateCPM();
             $("#startCountdown").removeClass("disabled");
@@ -221,12 +217,26 @@
         }
     }
 
+    function populateScore() {
+        var userScoreString = $("#userScore").html();
+        userScoreNum = parseInt(userScoreString);
+        userScoreNum += 1000;
+        console.log(userScoreNum);
+        $("#userScore").html(userScoreNum);
+        //let newNum = userScore.innerHTML;
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:5000/Game/EditUserScore',
+            data: {Score: userScoreNum},
+            success: function (result) {
+                console.log("AJAX result = ", result);
+            },
+        });
+    }
+
     function populateCPM() {
         var userCPM = $("#displayCPM").html();
         var userCPMdec = parseFloat(userCPM);
-        console.log("populateCPM", userCPMdec);
-        //ajax call to update database
-        //need to write a linq statement that will get the average CPM 
         $.ajax({
             type: 'POST',
             url: 'http://localhost:5000/Game/AddUserCPM',

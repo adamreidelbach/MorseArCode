@@ -40,14 +40,11 @@ namespace MorseArCode.Controllers
 
         // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUserScore(double Score)
         {
             var player = await GetCurrentUserAsync();
             player.Score = Score;
 
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(player);
@@ -64,8 +61,8 @@ namespace MorseArCode.Controllers
                         throw;
                     }
                 }
-            }
-            return RedirectToAction("LeaderBoard", "Home");
+                
+            return Ok(new { response = "Go baby go" });
         }
 
         // POST
