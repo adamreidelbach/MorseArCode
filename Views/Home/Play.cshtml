@@ -201,7 +201,7 @@
             wordCounter = 0;
         }
         wordCounter++;
-        let newWord = levelTwoWords[wordCounter];
+        let newWord = levelOneWords[wordCounter];
         $("#challengeWord").html(newWord);
         $("#userResponse").html("");
     }
@@ -223,8 +223,6 @@
         if (splittedChallenge[characterCounter] === splittedUser[characterCounter]) {
             characterCounter++;
             initialChar = new Date().getTime();
-            console.log("initialChar", initialChar);
-            console.log("pastChar", pastChar);
             if (pastChar != 0) {
                 timeDifference += initialChar - pastChar;
                 var userCPM = (Math.round(100 * characterCounter / timeDifference * 6000, 2) / 100);
@@ -236,10 +234,19 @@
     }
 
     function populateCPM() {
-        var userCPM = $("#displayCPM").html()
-        console.log("populateCPM", userCPM);
+        var userCPM = $("#displayCPM").html();
+        var userCPMdec = parseFloat(userCPM);
+        console.log("populateCPM", userCPMdec);
         //ajax call to update database
         //need to write a linq statement that will get the average CPM 
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:5000/Game/AddUserCPM',
+            data: {CPM: userCPMdec},
+            success: function (result) {
+                console.log("AJAX result = ", result);
+            },
+        });
     }
 
     $("#newWord").click(function() {
