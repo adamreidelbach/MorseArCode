@@ -129,8 +129,6 @@ namespace MorseArCode.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<decimal>("CPM");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -179,6 +177,22 @@ namespace MorseArCode.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("MorseArCode.Models.UserCPM", b =>
+                {
+                    b.Property<int>("UserCPMId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("CPM");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("UserCPMId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCPM");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -214,6 +228,13 @@ namespace MorseArCode.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MorseArCode.Models.UserCPM", b =>
+                {
+                    b.HasOne("MorseArCode.Models.ApplicationUser", "User")
+                        .WithMany("UserCPM")
+                        .HasForeignKey("UserId");
                 });
         }
     }

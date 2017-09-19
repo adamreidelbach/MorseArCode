@@ -15,6 +15,6 @@ namespace MorseArCode.Models
         
         public double Score { get; set; }
 
-        public decimal CPM { get; set; }
+        public ICollection<UserCPM> UserCPM { get; set; }
     }
 }

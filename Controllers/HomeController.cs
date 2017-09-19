@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MorseArCode.Data;
 using MorseArCode.Models;
 using MorseArCode.Models.UserViewModels;
@@ -56,7 +57,7 @@ namespace MorseArCode.Controllers
         public IActionResult LeaderBoard()
         {
             //make a list of all users
-            var allUsers = _context.Users.ToList();
+            var allUsers = _context.Users.Include(u => u.UserCPM).ToList();
 
             //make an instance of the view model
             var leaderBoardView = new UserScoreListViewModel();

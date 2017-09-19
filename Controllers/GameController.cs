@@ -73,11 +73,13 @@ namespace MorseArCode.Controllers
         public async Task<IActionResult> AddUserCPM(decimal CPM)
         {
             var player = await GetCurrentUserAsync();
-            player.CPM = CPM;
+            UserCPM playerCPM = new UserCPM();
+            playerCPM.CPM = CPM;
+            playerCPM.User = player;
 
                 try
                 {
-                    _context.Update(player);
+                    _context.Add(playerCPM);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
