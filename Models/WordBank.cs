@@ -10,6 +10,8 @@ namespace MorseArCode.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class WordBank
     {
+        [Key]
+        public int WordId {get; set; }
         public string Word { get; set; }
         public int Difficulty { get; set; }
     }

@@ -38,6 +38,20 @@ namespace MorseArCode.Controllers
             return userScore;
         }
 
+        // GET
+        [HttpGet]
+        public IActionResult GetWords(int difficulty)
+        {
+            IEnumerable<object> words = from wordBank in _context.WordBank where wordBank.Difficulty == difficulty select wordBank.Word;
+
+            if (words == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(words);
+        }
+
         // POST
         [HttpPost]
         public async Task<IActionResult> EditUserScore(double Score)
