@@ -39,19 +39,18 @@ namespace MorseArCode.Controllers
         }
 
         // GET
-        // [HttpGet]
-        // public Task<IActionResult> GetWords(int difficulty)
-        // {
-        //     IQueryable<object> words = from wordBank in _context.WordBank where wordBank.Difficulty == difficulty select wordBank.Word;
+        [HttpGet]
+        public IActionResult GetWords(int difficulty)
+        {
+            IEnumerable<object> words = from wordBank in _context.WordBank where wordBank.Difficulty == difficulty select wordBank.Word;
 
-        //     if (words == null)
-        //     {
-        //         return NotFound();
-        //     }
+            if (words == null)
+            {
+                return NotFound();
+            }
 
-        //     return Ok(words);
-
-        // }
+            return Ok(words);
+        }
 
         // POST
         [HttpPost]

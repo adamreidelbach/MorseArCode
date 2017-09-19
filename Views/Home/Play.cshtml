@@ -22,16 +22,13 @@
 
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
-        <button class="btn btn-default" id="startCountdown">Start</button>
-        <form action="/Game/GetWords" method="get">
-            <fieldset>Select Difficulty <select id="WordDiff" name="WordDiff">
+        <!-- <button class="btn btn-default" id="startCountdown">Start</button> -->
+        <select id="difficulty">
+            <option value="0">Select A Difficulty Level</option>
             <option value="1">3 Letter Words</option>
             <option value="2">4 Letter Words</option>
             <option value="3">5 Letter Words</option>
-            </select>
-            <p><input type="submit" value="Submit" /> </p>
-            </fieldset>
-        </form>
+        </select>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -93,17 +90,18 @@
         counter = setInterval(timer, 1000) //store counter
     }
 
-    $("#startCountdown").click(function() {
-        if (count > 0) {
-            $("#startCountdown").addClass("disabled");
-        }
-        if (countdown.innerHTML == "00:00") {
-            $("#startCountdown").removeClass("disabled");
-        }
-        populateWords();
-        counter = setInterval(timer, 1000)
-        cdReset();
-    });
+    function startTheCountdown() {
+        //$("#startCountdown").click(function() {
+            if (count > 0) {
+                $("#startCountdown").addClass("disabled");
+            }
+            if (countdown.innerHTML == "00:00") {
+                $("#startCountdown").removeClass("disabled");
+            }
+            counter = setInterval(timer, 1000);
+            cdReset();
+        //});
+    }
 
     function queryScores() {
         let playerScore = parseInt(userScore.innerHTML);
@@ -146,43 +144,14 @@
     }
     timer();
 
-    //Word Generator
-    let levelOneWords = [
-        "DOG",
-        "GIT",
-        "BUS",
-        "INT",
-        "WHO",
-        "SOY",
-        "CAT",
-        "PIT",
-        "FLY",
-        "ELF",
-        "SPY"
-    ];
+    var wordCounter = -1;
 
-    let levelTwoWords = [
-        "FIZZ",
-        "BUZZ",
-        "JUMP",
-        "LAZY",
-        "QUIZ",
-        "DOJO",
-        "ZOOM",
-        "AQUA",
-        "FLY",
-        "EXPO",
-        "HACK"
-    ];
-
-    var wordCounter = 0;
-
-    function populateWords() {
+    function populateWords(result) {
         if (wordCounter >= 10) {
             wordCounter = 0;
         }
         wordCounter++;
-        let newWord = levelOneWords[wordCounter];
+        let newWord = result[wordCounter];
         $("#challengeWord").html(newWord);
         $("#userResponse").html("");
     }
@@ -242,21 +211,27 @@
         });
     }
 
-    //function GetWords(difficulty) {
-        //var difficultyLevel = difficulty;
-        //$.ajax({
-            //type: 'POST',
-            //url: `http://localhost:5000/Game/GetWords${difficultyLevel}`,
-            //data: {CPM: userCPMdec},
-            //success: function (result) {
-          //      console.log("AJAX result = ", result);
-        //    },
-      //  });
-    //}
+    $("#difficulty").change(getWordsFromDB);
 
-    $("#newWord").click(function() {
-        populateWords();
-    });
+    function getWordsFromDB() {
+        var level = $(this).find('option:selected')[0];
+        $.ajax({
+            type: 'GET',
+            url: `http://localhost:5000/Game/GetWords?difficulty=${$(level).val()}`,
+            success: function (result) {
+                console.log("AJAX result = ", result);
+                populateWords(result);
+                nextWord(result);
+                startTheCountdown();
+            },
+        });
+    }
+
+    function nextWord(result) {
+        $("#newWord").click(function() {
+            populateWords(result);
+        });
+    }
 
 </script>
 
