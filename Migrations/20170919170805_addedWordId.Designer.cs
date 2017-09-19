@@ -8,8 +8,8 @@ using MorseArCode.Data;
 namespace MorseArCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170919153349_cpmStuff")]
-    partial class cpmStuff
+    [Migration("20170919170805_addedWordId")]
+    partial class addedWordId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,6 +192,20 @@ namespace MorseArCode.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserCPM");
+                });
+
+            modelBuilder.Entity("MorseArCode.Models.WordBank", b =>
+                {
+                    b.Property<int>("WordId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Difficulty");
+
+                    b.Property<string>("Word");
+
+                    b.HasKey("WordId");
+
+                    b.ToTable("WordBank");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

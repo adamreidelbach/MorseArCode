@@ -15,6 +15,11 @@ namespace MorseArCode.Data
         {
         }
 
+        //THESE ARE THE TABLES THAT ARE GOING IN THE DATABASE
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<UserCPM> UserCPM { get; set; }
+        public DbSet<WordBank> WordBank { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

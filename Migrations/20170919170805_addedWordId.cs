@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MorseArCode.Migrations
 {
-    public partial class cpmStuff : Migration
+    public partial class addedWordId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,6 +61,20 @@ namespace MorseArCode.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WordBank",
+                columns: table => new
+                {
+                    WordId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Difficulty = table.Column<int>(nullable: false),
+                    Word = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WordBank", x => x.WordId);
                 });
 
             migrationBuilder.CreateTable(
@@ -231,6 +245,9 @@ namespace MorseArCode.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserCPM");
+
+            migrationBuilder.DropTable(
+                name: "WordBank");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

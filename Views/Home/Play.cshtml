@@ -23,6 +23,15 @@
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown">Start</button>
+        <form action="/Game/GetWords" method="get">
+            <fieldset>Select Difficulty <select id="WordDiff" name="WordDiff">
+            <option value="1">3 Letter Words</option>
+            <option value="2">4 Letter Words</option>
+            <option value="3">5 Letter Words</option>
+            </select>
+            <p><input type="submit" value="Submit" /> </p>
+            </fieldset>
+        </form>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
@@ -206,11 +215,10 @@
 
     function populateScore() {
         var userScoreString = $("#userScore").html();
-        userScoreNum = parseInt(userScoreString);
+        var userScoreNum = parseInt(userScoreString);
         userScoreNum += 1000;
         console.log(userScoreNum);
         $("#userScore").html(userScoreNum);
-        //let newNum = userScore.innerHTML;
         $.ajax({
             type: 'POST',
             url: 'http://localhost:5000/Game/EditUserScore',
@@ -233,6 +241,18 @@
             },
         });
     }
+
+    //function GetWords(difficulty) {
+        //var difficultyLevel = difficulty;
+        //$.ajax({
+            //type: 'POST',
+            //url: `http://localhost:5000/Game/GetWords${difficultyLevel}`,
+            //data: {CPM: userCPMdec},
+            //success: function (result) {
+          //      console.log("AJAX result = ", result);
+        //    },
+      //  });
+    //}
 
     $("#newWord").click(function() {
         populateWords();

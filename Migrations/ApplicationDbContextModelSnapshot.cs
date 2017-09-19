@@ -193,6 +193,20 @@ namespace MorseArCode.Migrations
                     b.ToTable("UserCPM");
                 });
 
+            modelBuilder.Entity("MorseArCode.Models.WordBank", b =>
+                {
+                    b.Property<int>("WordId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Difficulty");
+
+                    b.Property<string>("Word");
+
+                    b.HasKey("WordId");
+
+                    b.ToTable("WordBank");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
