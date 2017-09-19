@@ -8,8 +8,8 @@ using MorseArCode.Data;
 namespace MorseArCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170911200826_somethingNew")]
-    partial class somethingNew
+    [Migration("20170918204105_addedDecimal")]
+    partial class addedDecimal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,7 +130,7 @@ namespace MorseArCode.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<int>("CPM");
+                    b.Property<decimal>("CPM");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -159,7 +159,7 @@ namespace MorseArCode.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("Score");
+                    b.Property<double>("Score");
 
                     b.Property<string>("SecurityStamp");
 

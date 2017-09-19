@@ -68,6 +68,33 @@ namespace MorseArCode.Controllers
             return RedirectToAction("LeaderBoard", "Home");
         }
 
+        // POST
+        [HttpPost]
+        public async Task<IActionResult> AddUserCPM(decimal CPM)
+        {
+            var player = await GetCurrentUserAsync();
+            player.CPM = CPM;
+
+                try
+                {
+                    _context.Update(player);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PlayerExists(player.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+            return Ok(new { response = "Go baby go" });
+        }
+
         private bool PlayerExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);

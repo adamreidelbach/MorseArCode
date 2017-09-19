@@ -129,7 +129,7 @@ namespace MorseArCode.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<int>("CPM");
+                    b.Property<decimal>("CPM");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();

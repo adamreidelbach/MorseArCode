@@ -13,5 +13,7 @@ namespace MorseArCode.Models.UserViewModels
         public double HighScore { get; set; }
 
         public double Score { get; set; }
+
+        public decimal CPM { get; set; }
     }
 }
