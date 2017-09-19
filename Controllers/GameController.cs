@@ -40,14 +40,11 @@ namespace MorseArCode.Controllers
 
         // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUserScore(double Score)
         {
             var player = await GetCurrentUserAsync();
             player.Score = Score;
 
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(player);
@@ -64,8 +61,8 @@ namespace MorseArCode.Controllers
                         throw;
                     }
                 }
-            }
-            return RedirectToAction("LeaderBoard", "Home");
+                
+            return Ok(new { response = "Go baby go" });
         }
 
         // POST
@@ -73,11 +70,13 @@ namespace MorseArCode.Controllers
         public async Task<IActionResult> AddUserCPM(decimal CPM)
         {
             var player = await GetCurrentUserAsync();
-            player.CPM = CPM;
+            UserCPM playerCPM = new UserCPM();
+            playerCPM.CPM = CPM;
+            playerCPM.User = player;
 
                 try
                 {
-                    _context.Update(player);
+                    _context.Add(playerCPM);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

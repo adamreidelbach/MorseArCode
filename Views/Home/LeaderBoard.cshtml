@@ -27,7 +27,7 @@
                 @Html.DisplayFor(modelItem => player.Score)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => player.CPM)
+                @player.UserCPM.Average(u => u.CPM)
             </td>
         </tr>
 }
