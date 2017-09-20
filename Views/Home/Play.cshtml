@@ -19,15 +19,13 @@
         </div>
     </div>
 
-		<h3 class="col-md-12 text-center">Tap Any Key And Enter The Following:</h3>
-
-        <h1 id="challengeWord" class="col-md-12 text-center">Click Start To Begin</h1>
+        <h1 id="challengeWord" class="col-md-12 text-center">Select A Difficulty Level</h1>
 
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown" disabled>Start</button>
         <select id="difficulty">
-            <option value="0">Select A Difficulty Level</option>
+            <option value="0">Difficulty Level</option>
             <option value="1">3 Letter Words</option>
             <option value="2">4 Letter Words</option>
             <option value="3">5 Letter Words</option>
@@ -77,7 +75,6 @@
     let count = 15 + 1; //1000 will  run it every second
         userResponse = document.getElementById("userResponse"),
         hiscore = document.getElementById("hiscore")
-        startCountdown = document.getElementById("startCountdown");
 
     var countdown = document.getElementById("timer"),
         score = document.getElementById("Score");
@@ -93,14 +90,14 @@
         counter = setInterval(timer, 1000) //store counter
     }
 
-    $("#startCountdown").click(function() {
-        $("#startCountdown").attr("disabled", true);
-        if (countdown.innerHTML == "00:00") {
-            $("#startCountdown").removeAttr("disabled");
-        }
-        counter = setInterval(timer, 1000);
-        cdReset();
-    });
+    //$("#startCountdown").click(function() {
+        //$("#startCountdown").attr("disabled", true);
+        //if (countdown.innerHTML == "00:00") {
+         //   $("#startCountdown").removeAttr("disabled");
+        //}
+        //counter = setInterval(timer, 1000);
+      //  cdReset();
+    //});
 
     function queryScores() {
         let playerScore = parseInt(userScore.innerHTML);
@@ -122,7 +119,7 @@
         cdDisplay();
         if (count == "00") {
             $("#timer").html("00:00");
-            $("#startCountdown").removeClass("disabled");
+            //$("#startCountdown").removeClass("disabled");
             clearInterval(counter);
             //counter ended, do something here
             return;
@@ -134,7 +131,7 @@
             populateScore();
             queryScores();
             populateCPM();
-            $("#startCountdown").removeClass("disabled");
+            //$("#startCountdown").removeClass("disabled");
             characterCounter = 0;
             initialChar = 0;
             pastChar = 0;
@@ -144,11 +141,20 @@
     timer();
 
     function populateWords(result) {
-        var num = Math.floor((Math.random() * 10) + 1);
-        console.log(num);
-        let newWord = result[num];
-        $("#challengeWord").html(newWord);
-        $("#userResponse").html("");
+        $("#startCountdown").click(function() {
+            $("#startCountdown").attr("disabled", true);
+            $("#difficulty").addClass("hidden");
+            if ($("#timer").html("00:00")) {
+                $("#startCountdown").removeAttr("disabled");
+                $("#difficulty").removeClass("hidden");
+            }
+            counter = setInterval(timer, 1000);
+            cdReset();
+            var num = Math.floor((Math.random() * 10) + 1);
+            let newWord = result[num];
+            $("#challengeWord").html(newWord);
+            $("#userResponse").html("");
+        });
     }
 
     $(function () {
@@ -215,6 +221,7 @@
             url: `http://localhost:5000/Game/GetWords?difficulty=${$(level).val()}`,
             success: function (result) {
                 console.log("AJAX result = ", result);
+                $("#challengeWord").html("Hit Start");
                 populateWords(result);
                 nextWord(result);
                 $("#startCountdown").removeAttr("disabled");
