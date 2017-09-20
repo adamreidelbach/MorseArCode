@@ -62,7 +62,8 @@ div.output p.message {
     }
 
 div.output span.possibleCharacters {
-    background-color: gold ;
+    background-color: lightgrey ;
+    color: black;
     display: inline-block ;
     padding: 0px 7px 0px 7px ;
     }
@@ -113,6 +114,10 @@ footer p {
     font-family: emulogic;
 }
 
+.emulogic {
+    font-family: emulogic;
+}
+
 .regLog {
     font-family: emulogic;
     color: #23AFC5 !important;
@@ -142,6 +147,11 @@ footer p {
 .gameHeader h3 {
     font-family: emulogic;
     font-size: 14px !important;
+}
+
+.difficultyLevel {
+    font-family: emulogic;
+    font-size: 24px !important;
 }
 
 /****** Leader Board ******/
@@ -209,7 +219,7 @@ footer p {
     font-family: emulogic;
 }
 
-.tableRowColor:nth-child(10n+9) {
+.tableRowColor:nth-child(10n+10) {
     color: #0CD424;
     font-family: emulogic;
 }
