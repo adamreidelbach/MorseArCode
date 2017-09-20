@@ -73,35 +73,21 @@
 <script>
     // ***** Countdown Timer
     let count = 15 + 1; //1000 will  run it every second
-        userResponse = document.getElementById("userResponse"),
-        hiscore = document.getElementById("hiscore")
-
+    let counter;
     var countdown = document.getElementById("timer"),
         score = document.getElementById("Score");
 
-    function cdDisplay() {
-        countdown.innerHTML = "00:" + count;
-    }
-
     function cdReset() {
         count = 15; //reset counter and display
-        cdDisplay();
+        countdown.innerHTML = "00:" + count;
         clearInterval(counter); //clear the timer
-        counter = setInterval(timer, 1000) //store counter
+        counter = setInterval(timer, 1000); //store counter
+        console.log("counter", counter);
     }
 
-    //$("#startCountdown").click(function() {
-        //$("#startCountdown").attr("disabled", true);
-        //if (countdown.innerHTML == "00:00") {
-         //   $("#startCountdown").removeAttr("disabled");
-        //}
-        //counter = setInterval(timer, 1000);
-      //  cdReset();
-    //});
-
     function queryScores() {
-        let playerScore = parseInt(userScore.innerHTML);
-        let databaseHiScore = parseInt(hiscore.innerHTML);
+        let playerScore = parseInt($("#userScore").html());
+        let databaseHiScore = parseInt($("#hiscore").html());
         if (playerScore > databaseHiScore) {
             $("#hiscore").html(playerScore);
         }
@@ -113,25 +99,27 @@
 
     function timer() {
         count--;
+        console.log("count", count);
         if (count < 10) {
             count = "0" + count
         }
-        cdDisplay();
+        countdown.innerHTML = "00:" + count;
         if (count == "00") {
             $("#timer").html("00:00");
-            //$("#startCountdown").removeClass("disabled");
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
             clearInterval(counter);
-            //counter ended, do something here
             return;
         }
-        if (userResponse.innerHTML === challengeWord.innerHTML) {
+        if ($("#userResponse").html() === $("#challengeWord").html()) {
             clearInterval(counter);
             alert("Correct!");
             countdown.innerHTML = "00:00"
             populateScore();
             queryScores();
             populateCPM();
-            //$("#startCountdown").removeClass("disabled");
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
             characterCounter = 0;
             initialChar = 0;
             pastChar = 0;
@@ -144,11 +132,6 @@
         $("#startCountdown").click(function() {
             $("#startCountdown").attr("disabled", true);
             $("#difficulty").addClass("hidden");
-            if ($("#timer").html("00:00")) {
-                $("#startCountdown").removeAttr("disabled");
-                $("#difficulty").removeClass("hidden");
-            }
-            counter = setInterval(timer, 1000);
             cdReset();
             var num = Math.floor((Math.random() * 10) + 1);
             let newWord = result[num];
@@ -167,9 +150,9 @@
     var timeDifference = 0;
 
     function charactersPerMinute() {
-        let challengeSplit = challengeWord.innerHTML;
+        let challengeSplit = $("#challengeWord").html();
         let splittedChallenge = challengeSplit.split("");
-        let userSplit = userResponse.innerHTML;
+        let userSplit = $("#userResponse").html();
         let splittedUser = userSplit.split("");
         if (splittedChallenge[characterCounter] === splittedUser[characterCounter]) {
             characterCounter++;
@@ -220,7 +203,6 @@
             type: 'GET',
             url: `http://localhost:5000/Game/GetWords?difficulty=${$(level).val()}`,
             success: function (result) {
-                console.log("AJAX result = ", result);
                 $("#challengeWord").html("Hit Start");
                 populateWords(result);
                 nextWord(result);
@@ -231,7 +213,10 @@
 
     function nextWord(result) {
         $("#newWord").click(function() {
-            populateWords(result);
+            var num = Math.floor((Math.random() * 10) + 1);
+            let newWord = result[num];
+            $("#challengeWord").html(newWord);
+            $("#userResponse").html("");
         });
     }
 
