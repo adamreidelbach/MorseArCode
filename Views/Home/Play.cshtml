@@ -2,12 +2,14 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
+    <div class="gameHeader">
         <div class="row">
             <h3 class="col-md-3 text-center">Your Score</h3>
             <h3 class="col-md-3 text-center">Time Remaining</h3>
             <h3 class="col-md-3 text-center">High Score</h3>
             <h3 class="col-md-3 text-center">Current CPM</h3>
         </div>
+        <div class="row">
             <h3 id="userScore" class="col-md-3 text-center">
 				@Model.ApplicationUser.Score
             </h3>
@@ -15,6 +17,7 @@
             <h3 id="hiscore" class="col-md-3 text-center">@Model.HighScore</h3>
             <h3 id="displayCPM" class="col-md-3 text-center">@(@Model.ApplicationUser.UserCPM == null ? 0 : @Model.ApplicationUser.UserCPM.Average(u => u.CPM))</h3>
         </div>
+    </div>
 
 		<h3 class="col-md-12 text-center">Tap Any Key And Enter The Following:</h3>
 
@@ -22,7 +25,7 @@
 
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
-        <!-- <button class="btn btn-default" id="startCountdown">Start</button> -->
+        <button class="btn btn-default" id="startCountdown">Start</button>
         <select id="difficulty">
             <option value="0">Select A Difficulty Level</option>
             <option value="1">3 Letter Words</option>
@@ -90,18 +93,16 @@
         counter = setInterval(timer, 1000) //store counter
     }
 
-    function startTheCountdown() {
-        //$("#startCountdown").click(function() {
-            if (count > 0) {
-                $("#startCountdown").addClass("disabled");
-            }
-            if (countdown.innerHTML == "00:00") {
-                $("#startCountdown").removeClass("disabled");
-            }
-            counter = setInterval(timer, 1000);
-            cdReset();
-        //});
-    }
+    $("#startCountdown").click(function() {
+        if (count > 0) {
+            $("#startCountdown").addClass("disabled");
+        }
+        if (countdown.innerHTML == "00:00") {
+            $("#startCountdown").removeClass("disabled");
+        }
+        counter = setInterval(timer, 1000);
+        cdReset();
+    });
 
     function queryScores() {
         let playerScore = parseInt(userScore.innerHTML);

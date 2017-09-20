@@ -1,17 +1,17 @@
 @model UserScoreListViewModel
 
-<h2>Leader Board</h2>
+<h2 class="text-center col-md-12 highTitle">High Scores</h2>
 
 <table class="table">
     <thead>
         <tr>
-                <th>
+                <th class="tableLabel">
                     Name
                 </th>
-                <th>
+                <th class="tableLabel">
                     Score
                 </th>
-                <th>
+                <th class="tableLabel">
                     Average CPM
                 </th>
             <th></th>
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
 @foreach (var player in Model.ApplicationUser) {
-        <tr>
+        <tr class="tableRowColor">
             <td>
                 @Html.DisplayFor(modelItem => player.Name)
             </td>

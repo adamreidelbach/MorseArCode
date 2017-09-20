@@ -28,6 +28,7 @@ namespace MorseArCode.Controllers
 
         public IActionResult Index()
         {
+            //need to pass in the same stuff I did for Play(), but it needs to be nullable for it to work when a user is not logged in
             return View();
         }
 
@@ -67,20 +68,6 @@ namespace MorseArCode.Controllers
 
             //pass in all the users
             return View(leaderBoardView);
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
         }
 
         public IActionResult Error()
