@@ -145,14 +145,10 @@
     }
     timer();
 
-    var wordCounter = -1;
-
     function populateWords(result) {
-        if (wordCounter >= 10) {
-            wordCounter = 0;
-        }
-        wordCounter++;
-        let newWord = result[wordCounter];
+        var num = Math.floor((Math.random() * 10) + 1);
+        console.log(num);
+        let newWord = result[num];
         $("#challengeWord").html(newWord);
         $("#userResponse").html("");
     }
