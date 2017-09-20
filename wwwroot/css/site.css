@@ -3,6 +3,8 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: black;
+    color: #DCDCDC;
 }
 
 /* Wrapping element */
@@ -100,4 +102,114 @@ div.alphabet ul.characters li span.sequence {
     line-height: 18px ;
     }
 
- /****** Custom CSS ******/
+/***** General Custom Styling *****/ 
+
+@font-face {
+    font-family: emulogic;
+    src: url(../fonts/freaky-fonts_emulogic/emulogic.ttf);
+}
+
+footer p {
+    font-family: emulogic;
+}
+
+.regLog {
+    font-family: emulogic;
+    color: #23AFC5 !important;
+    font-size: 12px;
+}
+
+.morseHeader {
+    font-family: emulogic;
+    font-size: 12px;
+}
+
+/***** Splash Page *****/
+.scoreSplash {
+    color: #D7534B;
+    margin-top: 20px;
+}
+
+.splashTotals {
+    margin-bottom: 50px;
+}
+
+.copywright {
+    margin-top: 50px;
+}
+
+/***** Game Page *****/
+.gameHeader h3 {
+    font-family: emulogic;
+    font-size: 14px !important;
+}
+
+/****** Leader Board ******/
+.homePageText {
+    font-family: emulogic;
+}
+
+.welcomeText {
+    color: #FFE23D;
+}
+
+
+.highTitle {
+    color: #D7534B;
+    font-family: emulogic;
+}
+
+.tableLabel {
+    color: #FCFC04;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+1) {
+    color: #DCDCDC;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+2) {
+    color: #FC0404;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+3) {
+    color: #FCB444;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+4) {
+    color: #FCB494;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+5) {
+    color: #F4CC34;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+6) {
+    color: #FCFC04;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+7) {
+    color: #14B42C;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+8) {
+    color: #04FCDC;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+9) {
+    color: #149CB4;
+    font-family: emulogic;
+}
+
+.tableRowColor:nth-child(10n+9) {
+    color: #0CD424;
+    font-family: emulogic;
+}

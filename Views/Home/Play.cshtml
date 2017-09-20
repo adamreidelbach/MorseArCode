@@ -2,12 +2,14 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
+    <div class="gameHeader">
         <div class="row">
             <h3 class="col-md-3 text-center">Your Score</h3>
             <h3 class="col-md-3 text-center">Time Remaining</h3>
             <h3 class="col-md-3 text-center">High Score</h3>
             <h3 class="col-md-3 text-center">Current CPM</h3>
         </div>
+        <div class="row">
             <h3 id="userScore" class="col-md-3 text-center">
 				@Model.ApplicationUser.Score
             </h3>
@@ -15,16 +17,15 @@
             <h3 id="hiscore" class="col-md-3 text-center">@Model.HighScore</h3>
             <h3 id="displayCPM" class="col-md-3 text-center">@(@Model.ApplicationUser.UserCPM == null ? 0 : @Model.ApplicationUser.UserCPM.Average(u => u.CPM))</h3>
         </div>
+    </div>
 
-		<h3 class="col-md-12 text-center">Tap Any Key And Enter The Following:</h3>
-
-        <h1 id="challengeWord" class="col-md-12 text-center">Click Start To Begin</h1>
+        <h1 id="challengeWord" class="col-md-12 text-center">Select A Difficulty Level</h1>
 
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
-        <!-- <button class="btn btn-default" id="startCountdown">Start</button> -->
+        <button class="btn btn-default" id="startCountdown" disabled>Start</button>
         <select id="difficulty">
-            <option value="0">Select A Difficulty Level</option>
+            <option value="0">Difficulty Level</option>
             <option value="1">3 Letter Words</option>
             <option value="2">4 Letter Words</option>
             <option value="3">5 Letter Words</option>
@@ -72,40 +73,21 @@
 <script>
     // ***** Countdown Timer
     let count = 15 + 1; //1000 will  run it every second
-        userResponse = document.getElementById("userResponse"),
-        hiscore = document.getElementById("hiscore")
-        startCountdown = document.getElementById("startCountdown");
-
+    let counter;
     var countdown = document.getElementById("timer"),
         score = document.getElementById("Score");
 
-    function cdDisplay() {
-        countdown.innerHTML = "00:" + count;
-    }
-
     function cdReset() {
         count = 15; //reset counter and display
-        cdDisplay();
+        countdown.innerHTML = "00:" + count;
         clearInterval(counter); //clear the timer
-        counter = setInterval(timer, 1000) //store counter
-    }
-
-    function startTheCountdown() {
-        //$("#startCountdown").click(function() {
-            if (count > 0) {
-                $("#startCountdown").addClass("disabled");
-            }
-            if (countdown.innerHTML == "00:00") {
-                $("#startCountdown").removeClass("disabled");
-            }
-            counter = setInterval(timer, 1000);
-            cdReset();
-        //});
+        counter = setInterval(timer, 1000); //store counter
+        console.log("counter", counter);
     }
 
     function queryScores() {
-        let playerScore = parseInt(userScore.innerHTML);
-        let databaseHiScore = parseInt(hiscore.innerHTML);
+        let playerScore = parseInt($("#userScore").html());
+        let databaseHiScore = parseInt($("#hiscore").html());
         if (playerScore > databaseHiScore) {
             $("#hiscore").html(playerScore);
         }
@@ -117,25 +99,27 @@
 
     function timer() {
         count--;
+        console.log("count", count);
         if (count < 10) {
             count = "0" + count
         }
-        cdDisplay();
+        countdown.innerHTML = "00:" + count;
         if (count == "00") {
             $("#timer").html("00:00");
-            $("#startCountdown").removeClass("disabled");
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
             clearInterval(counter);
-            //counter ended, do something here
             return;
         }
-        if (userResponse.innerHTML === challengeWord.innerHTML) {
+        if ($("#userResponse").html() === $("#challengeWord").html()) {
             clearInterval(counter);
             alert("Correct!");
             countdown.innerHTML = "00:00"
             populateScore();
             queryScores();
             populateCPM();
-            $("#startCountdown").removeClass("disabled");
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
             characterCounter = 0;
             initialChar = 0;
             pastChar = 0;
@@ -144,16 +128,16 @@
     }
     timer();
 
-    var wordCounter = -1;
-
     function populateWords(result) {
-        if (wordCounter >= 10) {
-            wordCounter = 0;
-        }
-        wordCounter++;
-        let newWord = result[wordCounter];
-        $("#challengeWord").html(newWord);
-        $("#userResponse").html("");
+        $("#startCountdown").click(function() {
+            $("#startCountdown").attr("disabled", true);
+            $("#difficulty").addClass("hidden");
+            cdReset();
+            var num = Math.floor((Math.random() * 10) + 1);
+            let newWord = result[num];
+            $("#challengeWord").html(newWord);
+            $("#userResponse").html("");
+        });
     }
 
     $(function () {
@@ -166,9 +150,9 @@
     var timeDifference = 0;
 
     function charactersPerMinute() {
-        let challengeSplit = challengeWord.innerHTML;
+        let challengeSplit = $("#challengeWord").html();
         let splittedChallenge = challengeSplit.split("");
-        let userSplit = userResponse.innerHTML;
+        let userSplit = $("#userResponse").html();
         let splittedUser = userSplit.split("");
         if (splittedChallenge[characterCounter] === splittedUser[characterCounter]) {
             characterCounter++;
@@ -219,17 +203,20 @@
             type: 'GET',
             url: `http://localhost:5000/Game/GetWords?difficulty=${$(level).val()}`,
             success: function (result) {
-                console.log("AJAX result = ", result);
+                $("#challengeWord").html("Hit Start");
                 populateWords(result);
                 nextWord(result);
-                startTheCountdown();
+                $("#startCountdown").removeAttr("disabled");
             },
         });
     }
 
     function nextWord(result) {
         $("#newWord").click(function() {
-            populateWords(result);
+            var num = Math.floor((Math.random() * 10) + 1);
+            let newWord = result[num];
+            $("#challengeWord").html(newWord);
+            $("#userResponse").html("");
         });
     }
 
