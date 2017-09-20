@@ -18,7 +18,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var player in Model.ApplicationUser) {
+@foreach (var player in Model.ApplicationUser.OrderByDescending(s => s.Score)) 
+{
         <tr class="tableRowColor">
             <td>
                 @Html.DisplayFor(modelItem => player.Name)
