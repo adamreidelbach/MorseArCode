@@ -66,10 +66,13 @@ div.output span.possibleCharacters {
     color: black;
     display: inline-block ;
     padding: 0px 7px 0px 7px ;
+    font-family: emulogic;
+    font-size: 18px !important;
     }
 
 div.alphabet {
-    bottom: 0px ;
+    bottom: 10px;
+    left: 30px;
     position: fixed ;
     }
 
@@ -83,7 +86,7 @@ div.alphabet ul.characters {
     }
 
 div.alphabet ul.characters li {
-    border: 1px solid #CCCCCC ;
+    border: 1px solid #423D9F ;
     display: inline-block ;
     padding: 10px 0px 10px 0px ;
     text-align: center ;
@@ -92,18 +95,25 @@ div.alphabet ul.characters li {
 
 div.alphabet ul.characters li span.character {
     display: block ;
-    font-size: 14px ;
+    font-size: 26px ;
     line-height: 18px ;
     margin: 0px 0px 7px 0px ;
+    font-family: emulogic;
     }
 
 div.alphabet ul.characters li span.sequence {
     display: block ;
-    font-size: 18px ;
+    font-size: 28px ;
     line-height: 18px ;
     }
 
 /***** General Custom Styling *****/ 
+
+.btn-default {
+    color: #333;
+    background-color: #DCDCDC;
+    border-color: #ccc;
+}
 
 @font-face {
     font-family: emulogic;
@@ -143,15 +153,51 @@ footer p {
     margin-top: 50px;
 }
 
+.secondsRemaining {
+    color: #FFE23D;
+    font-family: emulogic;
+    font-size: 30px;
+}
+
 /***** Game Page *****/
 .gameHeader h3 {
     font-family: emulogic;
-    font-size: 14px !important;
+    font-size: 18px !important;
 }
 
 .difficultyLevel {
     font-family: emulogic;
     font-size: 24px !important;
+}
+
+.scoreHeader {
+    color: #D7534B;
+}
+
+.cpmHeader {
+    color: #D7534B;
+}
+
+.buttonRow {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 30px;
+    font-family: emulogic;
+}
+
+#difficulty {
+    height: 30px;
+    color: black;
+}
+
+#userResponse {
+    font-family: emulogic;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#challengeWord {
+    color: #23AFC5;
 }
 
 /****** Leader Board ******/
