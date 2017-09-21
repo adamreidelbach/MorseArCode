@@ -205,7 +205,7 @@
             $("#newWord").removeClass("hidden");
             $("#userResetInput").removeClass("hidden");
             cdReset();
-            var num = Math.floor((Math.random() * 10) + 1);
+            var num = Math.floor((Math.random() * 10));
             let newWord = result[num];
             $("#challengeWord").html(newWord);
             $("#userResponse").html("");
@@ -282,7 +282,6 @@
     function nextWord(result) {
         $("#newWord").click(function() {
             var num = Math.floor((Math.random() * 10));
-            console.log(num);
             let newWord = result[num];
             $("#challengeWord").html(newWord);
             $("#userResponse").html("");
