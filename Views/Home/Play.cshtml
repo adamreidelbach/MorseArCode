@@ -75,13 +75,13 @@
 
 <script>
     // ***** Countdown Timer
-    let count = 15 + 1; //1000 will  run it every second
+    let count = 20 + 1; //1000 will  run it every second
     let counter;
     var countdown = document.getElementById("timer"),
         score = document.getElementById("Score");
 
     function cdReset() {
-        count = 15; //reset counter and display
+        count = 20; //reset counter and display
         countdown.innerHTML = "00:" + count;
         clearInterval(counter); //clear the timer
         counter = setInterval(timer, 1000); //store counter
@@ -100,6 +100,7 @@
         $("#userResponse").html("");
     });
 
+    let bonus;
     function timer() {
         count--;
         console.log("count", count);
@@ -107,19 +108,12 @@
             count = "0" + count
         }
         countdown.innerHTML = "00:" + count;
-        if (count == "00") {
-            $("#timer").html("00:00");
-            $("#startCountdown").removeAttr("disabled");
-            $("#difficulty").removeClass("hidden");
-            clearInterval(counter);
-            alert("Times Up!");
-            return;
-        }
-        if ($("#userResponse").html() === $("#challengeWord").html()) {
+        if ($("#userResponse").html() === $("#challengeWord").html() && count >= 15) {
             clearInterval(counter);
             alert("Correct!");
             countdown.innerHTML = "00:00"
-            populateScore();
+            bonus = 2000;
+            populateScore(bonus);
             queryScores();
             populateCPM();
             $("#startCountdown").removeAttr("disabled");
@@ -128,6 +122,63 @@
             initialChar = 0;
             pastChar = 0;
             timeDifference = 0;
+            return;
+        }
+        else if ($("#userResponse").html() === $("#challengeWord").html() && count >= 10) {
+            clearInterval(counter);
+            alert("Correct!");
+            countdown.innerHTML = "00:00"
+            bonus = 1500;
+            populateScore(bonus);
+            queryScores();
+            populateCPM();
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
+            characterCounter = 0;
+            initialChar = 0;
+            pastChar = 0;
+            timeDifference = 0;
+            return;
+        }
+        else if ($("#userResponse").html() === $("#challengeWord").html() && count >= 5) {
+            clearInterval(counter);
+            alert("Correct!");
+            countdown.innerHTML = "00:00"
+            bonus = 1000;
+            populateScore(bonus);
+            queryScores();
+            populateCPM();
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
+            characterCounter = 0;
+            initialChar = 0;
+            pastChar = 0;
+            timeDifference = 0;
+            return;
+        }
+        else if ($("#userResponse").html() === $("#challengeWord").html() && count > 0) {
+            clearInterval(counter);
+            alert("Correct!");
+            countdown.innerHTML = "00:00"
+            bonus = 500;
+            populateScore(bonus);
+            queryScores();
+            populateCPM();
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
+            characterCounter = 0;
+            initialChar = 0;
+            pastChar = 0;
+            timeDifference = 0;
+            return;
+        }
+        if (count == "00") {
+            $("#timer").html("00:00");
+            $("#startCountdown").removeAttr("disabled");
+            $("#difficulty").removeClass("hidden");
+            clearInterval(counter);
+            alert("Times Up!");
+            return;
         }
     }
     timer();
@@ -170,10 +221,10 @@
         }
     }
 
-    function populateScore() {
+    function populateScore(bonus) {
         var userScoreString = $("#userScore").html();
         var userScoreNum = parseInt(userScoreString);
-        userScoreNum += 1000;
+        userScoreNum += bonus;
         console.log(userScoreNum);
         $("#userScore").html(userScoreNum);
         $.ajax({
