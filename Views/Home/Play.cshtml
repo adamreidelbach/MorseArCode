@@ -4,23 +4,25 @@
 
     <div class="gameHeader">
         <div class="row">
-            <h3 class="col-md-3 text-center">Your Score</h3>
-            <h3 class="col-md-3 text-center">Time Remaining</h3>
-            <h3 class="col-md-3 text-center">High Score</h3>
-            <h3 class="col-md-3 text-center">Current CPM</h3>
+            <h3 class="col-md-4 text-center scoreHeader">Your Score</h3>
+            <h3 class="col-md-4 text-center scoreHeader">High Score</h3>
+            <h3 class="col-md-4 text-center cpmHeader">Current CPM</h3>
         </div>
         <div class="row">
-            <h3 id="userScore" class="col-md-3 text-center">
+            <h3 id="userScore" class="col-md-4 text-center">
 				@Model.ApplicationUser.Score
             </h3>
-            <h3 id="timer" class="col-md-3 text-center"></h3>
-            <h3 id="hiscore" class="col-md-3 text-center">@Model.HighScore</h3>
-            <h3 id="displayCPM" class="col-md-3 text-center">@(@Model.ApplicationUser.UserCPM == null ? 0 : @Model.ApplicationUser.UserCPM.Average(u => u.CPM))</h3>
+            <h3 id="hiscore" class="col-md-4 text-center">@Model.HighScore</h3>
+            <h3 id="displayCPM" class="col-md-4 text-center">@(@Model.ApplicationUser.UserCPM == null ? 0 : @Model.ApplicationUser.UserCPM.Average(u => u.CPM))</h3>
+        </div>
+        <div class="row">
+            <h2 id="timer" class="col-md-12 text-center secondsRemaining"></h2>
         </div>
     </div>
 
-        <h1 id="challengeWord" class="col-md-12 text-center">Select A Difficulty Level</h1>
+        <h1 id="challengeWord" class="col-md-12 text-center difficultyLevel">Select A Difficulty Level</h1>
 
+    <div class="buttonRow">
         <button class="btn btn-default" id="newWord">New Word</button>
         <button class="btn btn-default" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown" disabled>Start</button>
@@ -30,15 +32,16 @@
             <option value="2">4 Letter Words</option>
             <option value="3">5 Letter Words</option>
         </select>
+    </div>
 
 	<!-- BEGIN: Output. -->
 	<div class="output">
 
 		<p class="message">
 
-			<span id="userResponse" class="characters"></span>
+			<span id="userResponse" class="characters col-md-12 text-center"></span><br>
 
-			<span class="possibleCharacters">
+			<span class="possibleCharacters col-md-12 text-center">
 				<!-- This will be populated dynamically. -->
 			</span>
 
@@ -51,7 +54,7 @@
 	<!-- BEGIN: Alphabet. -->
 	<div class="alphabet">
 
-		<h3>
+		<h3 class="text-center col-md-12 emulogic">
 			Morse Code Alphabet
 		</h3>
 
@@ -109,6 +112,7 @@
             $("#startCountdown").removeAttr("disabled");
             $("#difficulty").removeClass("hidden");
             clearInterval(counter);
+            alert("Times Up!");
             return;
         }
         if ($("#userResponse").html() === $("#challengeWord").html()) {
@@ -203,7 +207,7 @@
             type: 'GET',
             url: `http://localhost:5000/Game/GetWords?difficulty=${$(level).val()}`,
             success: function (result) {
-                $("#challengeWord").html("Hit Start");
+                $("#challengeWord").html("Hit Start To Begin");
                 populateWords(result);
                 nextWord(result);
                 $("#startCountdown").removeAttr("disabled");
