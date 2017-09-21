@@ -112,8 +112,8 @@
             bonus = 2000;
             populateScore(bonus);
             queryScores();
-            populateCPM();
             charactersPerMinute();
+            populateCPM();
             $("#startCountdown").removeAttr("disabled");
             $("#difficulty").removeClass("hidden");
             characterCounter = 0;
@@ -128,8 +128,8 @@
             bonus = 1500;
             populateScore(bonus);
             queryScores();
-            populateCPM();
             charactersPerMinute();
+            populateCPM();
             $("#startCountdown").removeAttr("disabled");
             $("#difficulty").removeClass("hidden");
             characterCounter = 0;
@@ -144,8 +144,8 @@
             bonus = 1000;
             populateScore(bonus);
             queryScores();
-            populateCPM();
             charactersPerMinute();
+            populateCPM();
             $("#startCountdown").removeAttr("disabled");
             $("#difficulty").removeClass("hidden");
             characterCounter = 0;
@@ -160,8 +160,8 @@
             bonus = 500;
             populateScore(bonus);
             queryScores();
-            populateCPM();
             charactersPerMinute();
+            populateCPM();
             $("#startCountdown").removeAttr("disabled");
             $("#difficulty").removeClass("hidden");
             characterCounter = 0;
@@ -208,12 +208,9 @@
         let splittedChallenge = challengeSplit.split("");
         finishTime = new Date().getTime();
         characterCounter = splittedChallenge.length;
-        console.log("characterCounter", characterCounter)
         timeDifference = (finishTime - startTime) / 1000;
-        console.log("timeDiff", timeDifference);
         var charPerSec = timeDifference / characterCounter;
-        console.log("charPerSec", charPerSec);
-        var userCPM = charPerSec * 60;
+        var userCPM = (charPerSec * 60).toFixed(2);
         console.log(userCPM);
         $('#displayCPM').html(userCPM);
     }
