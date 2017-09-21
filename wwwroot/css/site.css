@@ -181,7 +181,6 @@ footer p {
 #playInstructions {
     font-family: emulogic;
     font-size: 18px !important;
-    margin-bottom: 30px;
 }
 
 .difficultyLevel {
@@ -217,6 +216,7 @@ footer p {
 
 #challengeWord {
     color: #23AFC5;
+    margin-bottom: 30px;
 }
 
 /****** Leader Board ******/

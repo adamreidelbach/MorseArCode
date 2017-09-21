@@ -20,8 +20,8 @@
         </div>
     </div>
 
+        <h1 id="playInstructions" class="col-md-12 text-center hidden">Tap Any Key To Play, Quick Tap = . Long Tap = _</h1>
         <h1 id="challengeWord" class="col-md-12 text-center difficultyLevel">Select A Difficulty Level</h1>
-        <h1 id="playInstructions" class="col-md-12 text-center">Tap (short or long) Any Key To Play</h1>
 
     <div class="buttonRow">
         <button class="btn btn-default hidden" id="newWord">New Word</button>
@@ -199,11 +199,11 @@
     function populateWords(result) {
         $("#startCountdown").click(function() {
             startTime = new Date().getTime(); //set time for first key press
+            $("#playInstructions").addClass("hidden");
             $("#startCountdown").addClass("hidden");
             $("#difficulty").addClass("hidden");
             $("#newWord").removeClass("hidden");
             $("#userResetInput").removeClass("hidden");
-            $("#playInstructions").addClass("hidden");
             cdReset();
             var num = Math.floor((Math.random() * 10) + 1);
             let newWord = result[num];
@@ -271,6 +271,7 @@
             url: `http://localhost:5000/Game/GetWords?difficulty=${$(level).val()}`,
             success: function (result) {
                 $("#challengeWord").html("Hit Start To Begin");
+                $("#playInstructions").removeClass("hidden");
                 populateWords(result);
                 nextWord(result);
                 $("#startCountdown").removeAttr("disabled");
@@ -280,7 +281,8 @@
 
     function nextWord(result) {
         $("#newWord").click(function() {
-            var num = Math.floor((Math.random() * 10) + 1);
+            var num = Math.floor((Math.random() * 10));
+            console.log(num);
             let newWord = result[num];
             $("#challengeWord").html(newWord);
             $("#userResponse").html("");
