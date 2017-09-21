@@ -27,16 +27,72 @@ namespace MorseArCode.Data
                 {
                     new ApplicationUser { 
                         Name = "Ron Swanson",
-                        Score = 2000,
+                        Score = 6000,
                         UserCPM = new List<UserCPM> {
-                            new UserCPM { CPM = 5 }
+                            new UserCPM { CPM = 16 }
                         }
                     },
                     new ApplicationUser { 
                         Name = "Leslie Knope",
-                        Score = 3000,
+                        Score = 5000,
                         UserCPM = new List<UserCPM> {
-                            new UserCPM { CPM = 6 }
+                            new UserCPM { CPM = 17 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "Tom Haverford",
+                        Score = 2000,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 8 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "Donna Meagle",
+                        Score = 4500,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 15 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "Jerry Gergich",
+                        Score = 3500,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 13 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "Chris Traeger",
+                        Score = 4000,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 14 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "Ann Perkins",
+                        Score = 4000,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 15 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "Andy Dwyer",
+                        Score = 500,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 10 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "April Ludgate",
+                        Score = 2500,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 14 }
+                        }
+                    },
+                    new ApplicationUser { 
+                        Name = "Ben Wyatt",
+                        Score = 4500,
+                        UserCPM = new List<UserCPM> {
+                            new UserCPM { CPM = 13 }
                         }
                     }
                 };
