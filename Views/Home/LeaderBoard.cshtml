@@ -5,13 +5,13 @@
 <table class="table">
     <thead>
         <tr>
-                <th class="tableLabel">
+                <th class="tableLabel text-left">
                     Name
                 </th>
-                <th class="tableLabel">
+                <th class="tableLabel text-left">
                     Score
                 </th>
-                <th class="tableLabel">
+                <th class="tableLabel text-left">
                     Average CPM
                 </th>
             <th></th>
@@ -21,14 +21,14 @@
 @foreach (var player in Model.ApplicationUser.OrderByDescending(s => s.Score)) 
 {
         <tr class="tableRowColor">
-            <td>
+            <td class="col-md-4 text-left">
                 @Html.DisplayFor(modelItem => player.Name)
             </td>
-            <td>
+            <td class="col-md-4 text-left">
                 @Html.DisplayFor(modelItem => player.Score)
             </td>
-            <td>
-                @(player.UserCPM.Count == 0 ? 0 : player.UserCPM.Average(u => u.CPM))
+            <td class="col-md-4 text-left">
+                @Math.Round(player.UserCPM.Count == 0 ? 0 : player.UserCPM.Average(u => u.CPM), 2)
             </td>
         </tr>
 }
