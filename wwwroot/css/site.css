@@ -182,6 +182,11 @@ footer p {
     50% { opacity: 0; }
 }
 
+.green {
+    color: #14B42C;
+    animation: blinker 1s linear infinite;
+}
+
 .gameHeader h3 {
     font-family: emulogic;
     font-size: 18px !important;
