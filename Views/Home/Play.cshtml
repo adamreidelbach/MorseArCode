@@ -23,8 +23,8 @@
         <h1 id="challengeWord" class="col-md-12 text-center difficultyLevel">Select A Difficulty Level</h1>
 
     <div class="buttonRow">
-        <button class="btn btn-default" id="newWord">New Word</button>
-        <button class="btn btn-default" id="userResetInput">Clear Input</button>
+        <button class="btn btn-default hidden" id="newWord">New Word</button>
+        <button class="btn btn-default hidden" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown" disabled>Start</button>
         <select id="difficulty">
             <option value="0">Difficulty Level</option>
@@ -114,8 +114,11 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Hit Start To Begin");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -130,8 +133,11 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Hit Start To Begin");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -146,8 +152,11 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Hit Start To Begin");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -162,8 +171,11 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Hit Start To Begin");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -172,8 +184,10 @@
         }
         if (count == "00") {
             $("#timer").html("00:00");
-            $("#startCountdown").removeAttr("disabled");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
             clearInterval(counter);
             alert("Times Up!");
             return;
@@ -184,8 +198,10 @@
     function populateWords(result) {
         $("#startCountdown").click(function() {
             startTime = new Date().getTime(); //set time for first key press
-            $("#startCountdown").attr("disabled", true);
+            $("#startCountdown").addClass("hidden");
             $("#difficulty").addClass("hidden");
+            $("#newWord").removeClass("hidden");
+            $("#userResetInput").removeClass("hidden");
             cdReset();
             var num = Math.floor((Math.random() * 10) + 1);
             let newWord = result[num];
