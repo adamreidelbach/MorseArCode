@@ -25,7 +25,7 @@
 
     <div class="buttonRow">
         <button class="btn btn-default hidden" id="newWord">New Word</button>
-        <button class="btn btn-default hidden" id="userResetInput">Clear Input</button>
+        <button class="btn btn-default hidden" id="userResetInput">Undo</button>
         <button class="btn btn-default" id="startCountdown" disabled>Start</button>
         <select id="difficulty">
             <option value="0">Difficulty Level</option>
@@ -97,7 +97,11 @@
     }
 
     $("#userResetInput").click(function() {
-        $("#userResponse").html("");
+        var userString = $("#userResponse").html();
+        var userSplit = userString.split("");
+        var location = userSplit.length - 1;
+        userSplit.splice(location, 1);
+        $("#userResponse").html(userSplit);
     });
 
     let bonus;
