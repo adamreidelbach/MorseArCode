@@ -20,11 +20,12 @@
         </div>
     </div>
 
+        <h1 id="playInstructions" class="col-md-12 text-center hidden">Tap Any Key To Play, Quick Tap = . Long Tap = _</h1>
         <h1 id="challengeWord" class="col-md-12 text-center difficultyLevel">Select A Difficulty Level</h1>
 
     <div class="buttonRow">
-        <button class="btn btn-default" id="newWord">New Word</button>
-        <button class="btn btn-default" id="userResetInput">Clear Input</button>
+        <button class="btn btn-default hidden" id="newWord">New Word</button>
+        <button class="btn btn-default hidden" id="userResetInput">Clear Input</button>
         <button class="btn btn-default" id="startCountdown" disabled>Start</button>
         <select id="difficulty">
             <option value="0">Difficulty Level</option>
@@ -102,8 +103,12 @@
     let bonus;
     function timer() {
         count--;
+        console.log(count);
         if (count < 10) {
             count = "0" + count
+        }
+        if (count <= 5) {
+            $("#timer").addClass("red");
         }
         countdown.innerHTML = "00:" + count;
         if ($("#userResponse").html() === $("#challengeWord").html() && count >= 15) {
@@ -114,8 +119,13 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Correct!<br>Hit Start to Continue");
+            $("#userScore").addClass("green");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -130,8 +140,13 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Correct!<br>Hit Start to Continue");
+            $("#userScore").addClass("green");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -146,8 +161,13 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Correct!<br>Hit Start to Continue");
+            $("#userScore").addClass("green");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -162,8 +182,13 @@
             queryScores();
             charactersPerMinute();
             populateCPM();
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Correct!<br>Hit Start to Continue");
+            $("#userScore").addClass("green");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -172,11 +197,13 @@
         }
         if (count == "00") {
             $("#timer").html("00:00");
-            $("#startCountdown").removeAttr("disabled");
+            $("#challengeWord").html("Times Up! &#9785;<br>Hit Start to Continue");
+            $("#startCountdown").removeClass("hidden");
             $("#difficulty").removeClass("hidden");
+            $("#newWord").addClass("hidden");
+            $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             clearInterval(counter);
-            alert("Times Up!");
-            return;
         }
     }
     timer();
@@ -184,10 +211,14 @@
     function populateWords(result) {
         $("#startCountdown").click(function() {
             startTime = new Date().getTime(); //set time for first key press
-            $("#startCountdown").attr("disabled", true);
+            $("#playInstructions").addClass("hidden");
+            $("#startCountdown").addClass("hidden");
+            $("#userScore").removeClass("green");
             $("#difficulty").addClass("hidden");
+            $("#newWord").removeClass("hidden");
+            $("#userResetInput").removeClass("hidden");
             cdReset();
-            var num = Math.floor((Math.random() * 10) + 1);
+            var num = Math.floor((Math.random() * 10));
             let newWord = result[num];
             $("#challengeWord").html(newWord);
             $("#userResponse").html("");
@@ -253,6 +284,7 @@
             url: `http://localhost:5000/Game/GetWords?difficulty=${$(level).val()}`,
             success: function (result) {
                 $("#challengeWord").html("Hit Start To Begin");
+                $("#playInstructions").removeClass("hidden");
                 populateWords(result);
                 nextWord(result);
                 $("#startCountdown").removeAttr("disabled");
@@ -262,7 +294,7 @@
 
     function nextWord(result) {
         $("#newWord").click(function() {
-            var num = Math.floor((Math.random() * 10) + 1);
+            var num = Math.floor((Math.random() * 10));
             let newWord = result[num];
             $("#challengeWord").html(newWord);
             $("#userResponse").html("");
