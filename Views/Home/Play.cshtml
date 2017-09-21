@@ -107,6 +107,9 @@
         if (count < 10) {
             count = "0" + count
         }
+        if (count <= 5) {
+            $("#timer").addClass("red");
+        }
         countdown.innerHTML = "00:" + count;
         if ($("#userResponse").html() === $("#challengeWord").html() && count >= 15) {
             clearInterval(counter);
@@ -121,6 +124,7 @@
             $("#difficulty").removeClass("hidden");
             $("#newWord").addClass("hidden");
             $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -140,6 +144,7 @@
             $("#difficulty").removeClass("hidden");
             $("#newWord").addClass("hidden");
             $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -159,6 +164,7 @@
             $("#difficulty").removeClass("hidden");
             $("#newWord").addClass("hidden");
             $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -178,6 +184,7 @@
             $("#difficulty").removeClass("hidden");
             $("#newWord").addClass("hidden");
             $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             characterCounter = 0;
             startTime = 0;
             finishTime = 0;
@@ -191,6 +198,7 @@
             $("#difficulty").removeClass("hidden");
             $("#newWord").addClass("hidden");
             $("#userResetInput").addClass("hidden");
+            $("#timer").removeClass("red");
             clearInterval(counter);
         }
     }

@@ -173,6 +173,15 @@ footer p {
 }
 
 /***** Game Page *****/
+.red {
+    color: #D7534B;
+    animation: blinker .75s linear infinite;
+}
+
+@keyframes blinker {  
+    50% { opacity: 0; }
+}
+
 .gameHeader h3 {
     font-family: emulogic;
     font-size: 18px !important;
